@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.nuls.data.dao.TablespaceInfoDAO">
+
+
+    <sql id="tablespaceInfoColumns">
+        ${alias}.id,
+        ${alias}.tablespace_name as tablespaceName,
+        ${alias}.tablespace_desc as tablespaceDesc,
+        ${alias}.code_mode as codeMode,
+        ${alias}.encryption_mode as encryptionMode,
+        ${alias}.to_chain as toChain,
+        ${alias}.create_time as createTime,
+        ${alias}.update_time as updateTime,
+        ${alias}.creator_id as creatorId
+    </sql>
+
+
+    <select id="findById" resultType="TablespaceInfoPO">
+        select
+            <include refid="tablespaceInfoColumns"><property name="alias" value="t"/></include>
+        from nl_tablespace_info t
+        <where>
+            and t.id = #{arg0}
+        </where>
+        limit 1
+    </select>
+
+    <select id="exist" resultType="boolean">
+        select count(1) from nl_tablespace_info
+        <where>
+            and id = #{arg0}
+        </where>
+    </select>
+
+    <insert id="_save" useGeneratedKeys="true" keyProperty="id" parameterType="TablespaceInfoPO">
+        insert into nl_tablespace_info(
+        id,
+        tablespace_name,
+        tablespace_desc,
+        code_mode,
+        encryption_mode,
+        to_chain,
+        create_time,
+        update_time,
+        creator_id
+        ) VALUES (
+        #{id,jdbcType=VARCHAR},
+        #{tablespaceName,jdbcType=VARCHAR},
+        #{tablespaceDesc,jdbcType=VARCHAR},
+        #{codeMode,jdbcType=INTEGER},
+        #{encryptionMode,jdbcType=INTEGER},
+        #{toChain,jdbcType=INTEGER},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{creatorId,jdbcType=VARCHAR}
+        )
+    </insert>
+
+
+    <update id="_update" parameterType="TablespaceInfoPO">
+        update nl_tablespace_info set
+            tablespace_name=#{tablespaceName,jdbcType=VARCHAR},
+            tablespace_desc=#{tablespaceDesc,jdbcType=VARCHAR},
+            code_mode=#{codeMode,jdbcType=INTEGER},
+            encryption_mode=#{encryptionMode,jdbcType=INTEGER},
+            to_chain=#{toChain,jdbcType=INTEGER},
+            create_time=#{createTime,jdbcType=TIMESTAMP},
+            update_time=#{updateTime,jdbcType=TIMESTAMP},
+            creator_id=#{creatorId,jdbcType=VARCHAR}
+        where id=#{id,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="delete">
+        delete from nl_tablespace_info
+        where id=#{arg0,jdbcType=VARCHAR}
+    </delete>
+
+
+    <sql id="queryCondition">
+    </sql>
+
+    <sql id="orderCondition">
+        order by
+            t.id desc
+    </sql>
+
+    <select id="findCountByQuery" parameterType="TablespaceInfoQO" resultType="int">
+        select count(1) from nl_tablespace_info t
+        <where>
+        <include refid="queryCondition"/>
+        </where>
+    </select>
+
+    <select id="findListByQuery" parameterType="TablespaceInfoQO" resultType="TablespaceInfoListVO">
+        select
+            <include refid="tablespaceInfoColumns"><property name="alias" value="t"/></include>
+        from nl_tablespace_info t
+        <where>
+        <include refid="queryCondition"/>
+        </where>
+        <include refid="orderCondition"/>
+        limit #{startIndex},#{pageSize}
+    </select>
+
+    <select id="findOptions" parameterType="OptionQO" resultType="OptionVO">
+        select
+            t.id as `key`,
+            t.tablespace_name as `value`
+        from nl_tablespace_info t
+        <where>
+            <if test="lastKey != null">
+                and t.id > #{lastKey}
+            </if>
+            <if test="matchValue != null and matchValue !='' ">
+                and t.tablespace_name = #{matchValue}
+            </if>
+        </where>
+        order by t.id asc
+        limit #{limit}
+    </select>
+
+    <select id="findByAppInfo" parameterType="String" resultType="TablespaceInfoPO">
+        select
+            <include refid="tablespaceInfoColumns"><property name="alias" value="t"/></include>
+        from nl_tablespace_info t
+        inner join nl_app_relation_tablespace_info r
+            on t.id=r.tablespace_id
+        where
+            r.app_id=#{arg0}
+        order by
+            r.id
+    </select>
+
+
+
+    <!-- 以上是自动生成的代码，尽量不要手动修改，新的sql请写在本行注释以下区域 -->
+
+
+</mapper>

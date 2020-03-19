@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.nuls.data.dao.SystemDictDAO">
+
+
+    <sql id="systemDictColumns">
+        ${alias}.id,
+        ${alias}.dict_key as dictKey,
+        ${alias}.dict_value as dictValue,
+        ${alias}.dict_desc as dictDesc
+    </sql>
+
+
+    <select id="findById" resultType="SystemDictPO">
+        select
+            <include refid="systemDictColumns"><property name="alias" value="t"/></include>
+        from nl_system_dict t
+        <where>
+            and t.id = #{arg0}
+        </where>
+        limit 1
+    </select>
+
+    <select id="exist" resultType="boolean">
+        select count(1) from nl_system_dict
+        <where>
+            and id = #{arg0}
+        </where>
+    </select>
+
+    <insert id="_save" useGeneratedKeys="true" keyProperty="id" parameterType="SystemDictPO">
+        insert into nl_system_dict(
+        id,
+        dict_key,
+        dict_value,
+        dict_desc
+        ) VALUES (
+        #{id,jdbcType=VARCHAR},
+        #{dictKey,jdbcType=VARCHAR},
+        #{dictValue,jdbcType=VARCHAR},
+        #{dictDesc,jdbcType=VARCHAR}
+        )
+    </insert>
+
+
+    <update id="_update" parameterType="SystemDictPO">
+        update nl_system_dict set
+            dict_key=#{dictKey,jdbcType=VARCHAR},
+            dict_value=#{dictValue,jdbcType=VARCHAR},
+            dict_desc=#{dictDesc,jdbcType=VARCHAR}
+        where id=#{id,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="delete">
+        delete from nl_system_dict
+        where id=#{arg0,jdbcType=VARCHAR}
+    </delete>
+
+
+    <sql id="queryCondition">
+    </sql>
+
+    <sql id="orderCondition">
+        order by
+            t.id desc
+    </sql>
+
+    <select id="findCountByQuery" parameterType="SystemDictQO" resultType="int">
+        select count(1) from nl_system_dict t
+        <where>
+        <include refid="queryCondition"/>
+        </where>
+    </select>
+
+    <select id="findListByQuery" parameterType="SystemDictQO" resultType="SystemDictListVO">
+        select
+            <include refid="systemDictColumns"><property name="alias" value="t"/></include>
+        from nl_system_dict t
+        <where>
+        <include refid="queryCondition"/>
+        </where>
+        <include refid="orderCondition"/>
+        limit #{startIndex},#{pageSize}
+    </select>
+
+
+
+    <!-- 以上是自动生成的代码，尽量不要手动修改，新的sql请写在本行注释以下区域 -->
+
+
+</mapper>

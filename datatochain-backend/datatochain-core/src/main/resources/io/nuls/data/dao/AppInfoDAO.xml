@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.nuls.data.dao.AppInfoDAO">
+
+
+    <sql id="appInfoColumns">
+        ${alias}.id,
+        ${alias}.app_name as appName,
+        ${alias}.app_desc as appDesc,
+        ${alias}.app_key as appKey,
+        ${alias}.create_time as createTime,
+        ${alias}.update_time as updateTime,
+        ${alias}.creator_id as creatorId
+    </sql>
+
+
+    <select id="findById" resultType="AppInfoPO">
+        select
+            <include refid="appInfoColumns"><property name="alias" value="t"/></include>
+        from nl_app_info t
+        <where>
+            and t.id = #{arg0}
+        </where>
+        limit 1
+    </select>
+
+    <select id="exist" resultType="boolean">
+        select count(1) from nl_app_info
+        <where>
+            and id = #{arg0}
+        </where>
+    </select>
+
+    <insert id="_save" useGeneratedKeys="true" keyProperty="id" parameterType="AppInfoPO">
+        insert into nl_app_info(
+        id,
+        app_name,
+        app_desc,
+        app_key,
+        create_time,
+        update_time,
+        creator_id
+        ) VALUES (
+        #{id,jdbcType=VARCHAR},
+        #{appName,jdbcType=VARCHAR},
+        #{appDesc,jdbcType=VARCHAR},
+        #{appKey,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{creatorId,jdbcType=VARCHAR}
+        )
+    </insert>
+
+
+    <update id="_update" parameterType="AppInfoPO">
+        update nl_app_info set
+            app_name=#{appName,jdbcType=VARCHAR},
+            app_desc=#{appDesc,jdbcType=VARCHAR},
+            app_key=#{appKey,jdbcType=VARCHAR},
+            create_time=#{createTime,jdbcType=TIMESTAMP},
+            update_time=#{updateTime,jdbcType=TIMESTAMP},
+            creator_id=#{creatorId,jdbcType=VARCHAR}
+        where id=#{id,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="delete">
+        delete from nl_app_info
+        where id=#{arg0,jdbcType=VARCHAR}
+    </delete>
+
+
+    <sql id="queryCondition">
+        <if test="appName != null and appName !='' ">
+            <bind name="appName_pattern" value="'%' + appName + '%'" />
+            and t.app_name like #{appName_pattern}
+        </if>
+    </sql>
+
+    <sql id="orderCondition">
+        order by
+            t.id desc
+    </sql>
+
+    <select id="findCountByQuery" parameterType="AppInfoQO" resultType="int">
+        select count(1) from nl_app_info t
+        <where>
+        <include refid="queryCondition"/>
+        </where>
+    </select>
+
+    <select id="findListByQuery" parameterType="AppInfoQO" resultType="AppInfoListVO">
+        select
+            <include refid="appInfoColumns"><property name="alias" value="t"/></include>
+        from nl_app_info t
+        <where>
+        <include refid="queryCondition"/>
+        </where>
+        <include refid="orderCondition"/>
+        limit #{startIndex},#{pageSize}
+    </select>
+
+    <select id="findOptions" parameterType="OptionQO" resultType="OptionVO">
+        select
+            t.id as `key`,
+            t.app_name as `value`
+        from nl_app_info t
+        <where>
+            <if test="lastKey != null">
+                and t.id > #{lastKey}
+            </if>
+            <if test="matchValue != null and matchValue !='' ">
+                <bind name="matchValue_pattern" value="'%' + matchValue + '%'" />
+                and t.app_name like #{matchValue_pattern}
+            </if>
+        </where>
+        order by t.id asc
+        limit #{limit}
+    </select>
+
+    <select id="getCountByTablespaceInfo" parameterType="String" resultType="int">
+        select count(1)
+        from nl_app_info t
+        inner join nl_app_relation_tablespace_info r
+            on t.id=r.app_id
+        where
+            r.tablespace_id=#{arg0}
+    </select>
+
+    <insert id="addTablespaceInfo" parameterType="map">
+        insert into nl_app_relation_tablespace_info(
+            app_id,
+            tablespace_id,
+            created_time
+        )values(
+            #{appId,jdbcType=VARCHAR},
+            #{tablespaceId,jdbcType=VARCHAR},
+            now()
+        )
+    </insert>
+
+    <delete id="removeTablespaceInfo" parameterType="map">
+        delete from nl_app_relation_tablespace_info
+        where app_id=#{appId,jdbcType=VARCHAR} and tablespace_id in
+        <foreach collection="tablespaceId" item="_id" open="(" separator="," close=")">
+            #{_id}
+        </foreach>
+    </delete>
+
+    <delete id="removeAllTablespaceInfo">
+        delete from nl_app_relation_tablespace_info
+        where app_id=#{arg0}
+    </delete>
+
+
+
+    <!-- 以上是自动生成的代码，尽量不要手动修改，新的sql请写在本行注释以下区域 -->
+
+
+</mapper>

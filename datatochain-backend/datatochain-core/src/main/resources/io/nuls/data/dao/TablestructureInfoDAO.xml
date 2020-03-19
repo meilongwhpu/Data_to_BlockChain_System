@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.nuls.data.dao.TablestructureInfoDAO">
+
+
+    <sql id="tablestructureInfoColumns">
+        ${alias}.id,
+        ${alias}.tablespace_id as tablespaceId,
+        ${alias}.`table_name` as tableName,
+        ${alias}.table_desc as tableDesc,
+        ${alias}.create_time as createTime,
+        ${alias}.update_time as updateTime,
+        ${alias}.creator_id as creatorId
+    </sql>
+
+
+    <select id="findById" resultType="TablestructureInfoPO">
+        select
+            <include refid="tablestructureInfoColumns"><property name="alias" value="t"/></include>
+        from nl_tablestructure_info t
+        <where>
+            and t.id = #{arg0}
+        </where>
+        limit 1
+    </select>
+
+    <select id="exist" resultType="boolean">
+        select count(1) from nl_tablestructure_info
+        <where>
+            and id = #{arg0}
+        </where>
+    </select>
+
+    <insert id="_save" useGeneratedKeys="true" keyProperty="id" parameterType="TablestructureInfoPO">
+        insert into nl_tablestructure_info(
+        id,
+        tablespace_id,
+        `table_name`,
+        table_desc,
+        create_time,
+        update_time,
+        creator_id
+        ) VALUES (
+        #{id,jdbcType=VARCHAR},
+        #{tablespaceId,jdbcType=VARCHAR},
+        #{tableName,jdbcType=VARCHAR},
+        #{tableDesc,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP},
+        #{updateTime,jdbcType=TIMESTAMP},
+        #{creatorId,jdbcType=VARCHAR}
+        )
+    </insert>
+
+
+    <update id="_update" parameterType="TablestructureInfoPO">
+        update nl_tablestructure_info set
+            tablespace_id=#{tablespaceId,jdbcType=VARCHAR},
+            `table_name`=#{tableName,jdbcType=VARCHAR},
+            table_desc=#{tableDesc,jdbcType=VARCHAR},
+            create_time=#{createTime,jdbcType=TIMESTAMP},
+            update_time=#{updateTime,jdbcType=TIMESTAMP},
+            creator_id=#{creatorId,jdbcType=VARCHAR}
+        where id=#{id,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="delete">
+        delete from nl_tablestructure_info
+        where id=#{arg0,jdbcType=VARCHAR}
+    </delete>
+
+
+    <sql id="queryCondition">
+        <bind name="tablespace_name_con_ex" value="tablespaceName != null and tablespaceName !='' " />
+        <if test="tablespace_name_con_ex ">
+            and exists(
+                select 1 from nl_tablespace_info e1
+                where e1.id = t.tablespace_id
+            <if test="tablespace_name_con_ex">
+                and e1.tablespace_name = #{tablespaceName}
+            </if>
+            )
+        </if>
+    </sql>
+
+    <sql id="orderCondition">
+        order by
+            t.id desc
+    </sql>
+
+    <select id="findCountByQuery" parameterType="TablestructureInfoQO" resultType="int">
+        select count(1) from nl_tablestructure_info t
+        <where>
+        <include refid="queryCondition"/>
+        </where>
+    </select>
+
+    <select id="findListByQuery" parameterType="TablestructureInfoQO" resultType="TablestructureInfoListVO">
+        select
+            <include refid="tablestructureInfoColumns"><property name="alias" value="t"/></include>
+            ,c1.tablespace_name as tablespaceName
+        from nl_tablestructure_info t
+        left outer join nl_tablespace_info c1
+            on c1.id = t.tablespace_id
+        <where>
+        <include refid="queryCondition"/>
+        </where>
+        <include refid="orderCondition"/>
+        limit #{startIndex},#{pageSize}
+    </select>
+
+    <select id="findOptions" parameterType="OptionQO" resultType="OptionVO">
+        select
+            t.id as `key`,
+            t.`table_name` as `value`
+        from nl_tablestructure_info t
+        <where>
+            <if test="lastKey != null">
+                and t.id > #{lastKey}
+            </if>
+            <if test="matchValue != null and matchValue !='' ">
+                and t.`table_name` = #{matchValue}
+            </if>
+        </where>
+        order by t.id asc
+        limit #{limit}
+    </select>
+
+    <select id="getCountByTablespaceId" parameterType="String" resultType="int">
+        select count(1)
+        from nl_tablestructure_info t
+        where
+            t.tablespace_id=#{arg0}
+    </select>
+
+
+
+    <!-- 以上是自动生成的代码，尽量不要手动修改，新的sql请写在本行注释以下区域 -->
+
+
+</mapper>

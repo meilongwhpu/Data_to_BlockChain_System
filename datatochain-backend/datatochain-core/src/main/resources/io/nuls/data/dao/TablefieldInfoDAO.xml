@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.nuls.data.dao.TablefieldInfoDAO">
+
+
+    <sql id="tablefieldInfoColumns">
+        ${alias}.id,
+        ${alias}.table_id as tableId,
+        ${alias}.field_name as fieldName,
+        ${alias}.field_desc as fieldDesc,
+        ${alias}.field_type as fieldType,
+        ${alias}.field_length as fieldLength,
+        ${alias}.allow_null as allowNull,
+        ${alias}.creator_id as creatorId
+    </sql>
+
+
+    <select id="findById" resultType="TablefieldInfoPO">
+        select
+            <include refid="tablefieldInfoColumns"><property name="alias" value="t"/></include>
+        from nl_tablefield_info t
+        <where>
+            and t.id = #{arg0}
+        </where>
+        limit 1
+    </select>
+
+    <select id="exist" resultType="boolean">
+        select count(1) from nl_tablefield_info
+        <where>
+            and id = #{arg0}
+        </where>
+    </select>
+
+    <insert id="_save" useGeneratedKeys="true" keyProperty="id" parameterType="TablefieldInfoPO">
+        insert into nl_tablefield_info(
+        id,
+        table_id,
+        field_name,
+        field_desc,
+        field_type,
+        field_length,
+        allow_null,
+        creator_id
+        ) VALUES (
+        #{id,jdbcType=VARCHAR},
+        #{tableId,jdbcType=VARCHAR},
+        #{fieldName,jdbcType=VARCHAR},
+        #{fieldDesc,jdbcType=VARCHAR},
+        #{fieldType,jdbcType=INTEGER},
+        #{fieldLength,jdbcType=VARCHAR},
+        #{allowNull,jdbcType=INTEGER},
+        #{creatorId,jdbcType=VARCHAR}
+        )
+    </insert>
+
+
+    <update id="_update" parameterType="TablefieldInfoPO">
+        update nl_tablefield_info set
+            table_id=#{tableId,jdbcType=VARCHAR},
+            field_name=#{fieldName,jdbcType=VARCHAR},
+            field_desc=#{fieldDesc,jdbcType=VARCHAR},
+            field_type=#{fieldType,jdbcType=INTEGER},
+            field_length=#{fieldLength,jdbcType=VARCHAR},
+            allow_null=#{allowNull,jdbcType=INTEGER},
+            creator_id=#{creatorId,jdbcType=VARCHAR}
+        where id=#{id,jdbcType=VARCHAR}
+    </update>
+
+    <delete id="delete">
+        delete from nl_tablefield_info
+        where id=#{arg0,jdbcType=VARCHAR}
+    </delete>
+
+
+    <sql id="queryCondition">
+        <bind name="table_name_con_ex" value="tableName != null and tableName !='' " />
+        <if test="table_name_con_ex ">
+            and exists(
+                select 1 from nl_tablestructure_info e1
+                where e1.id = t.table_id
+            <if test="table_name_con_ex">
+                and e1.`table_name` = #{tableName}
+            </if>
+            )
+        </if>
+    </sql>
+
+    <sql id="orderCondition">
+        order by
+            t.id desc
+    </sql>
+
+    <select id="findCountByQuery" parameterType="TablefieldInfoQO" resultType="int">
+        select count(1) from nl_tablefield_info t
+        <where>
+        <include refid="queryCondition"/>
+        </where>
+    </select>
+
+    <select id="findListByQuery" parameterType="TablefieldInfoQO" resultType="TablefieldInfoListVO">
+        select
+            <include refid="tablefieldInfoColumns"><property name="alias" value="t"/></include>
+            ,c1.`table_name` as tableName
+        from nl_tablefield_info t
+        left outer join nl_tablestructure_info c1
+            on c1.id = t.table_id
+        <where>
+        <include refid="queryCondition"/>
+        </where>
+        <include refid="orderCondition"/>
+        limit #{startIndex},#{pageSize}
+    </select>
+
+    <select id="getCountByTableId" parameterType="String" resultType="int">
+        select count(1)
+        from nl_tablefield_info t
+        where
+            t.table_id=#{arg0}
+    </select>
+
+
+
+    <!-- 以上是自动生成的代码，尽量不要手动修改，新的sql请写在本行注释以下区域 -->
+
+
+</mapper>
