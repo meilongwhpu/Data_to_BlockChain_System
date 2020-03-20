@@ -2,6 +2,9 @@ server:
     servlet:
         context-path: /
     port: 8080
+management:
+    security:
+        enabled: false
 spring:
     application:
         name: datatochain
