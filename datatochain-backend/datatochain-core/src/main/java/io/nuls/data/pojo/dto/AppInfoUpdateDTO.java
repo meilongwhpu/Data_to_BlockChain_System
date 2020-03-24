@@ -23,8 +23,7 @@ public class AppInfoUpdateDTO extends AbstractDTO {
 
     @ApiModelProperty(notes = N_ID,example = E_ID,required = true)
     @NotNull
-    @Length(max = 50)
-    private String id;
+    private Integer id;
 
     @ApiModelProperty(notes = N_APP_DESC,example = E_APP_DESC)
     @Length(max = 50)
@@ -44,11 +43,11 @@ public class AppInfoUpdateDTO extends AbstractDTO {
     private Date updateTime;
 
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -64,11 +64,32 @@
           <span>{{ row.fieldLength }}</span>
         </template>
       </el-table-column>
+      <el-table-column label="类型小数长度"
+                       prop="fieldDecimalLength"
+                       align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.fieldDecimalLength }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="是否主键"
+                       prop="fieldIsKey"
+                       align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.fieldIsKey | findEnumLabel(enums.isKey) }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="是否允许为空"
                        prop="allowNull"
                        align="center">
         <template slot-scope="{row}">
           <span>{{ row.allowNull | findEnumLabel(enums.allowNull) }}</span>
+        </template>
+      </el-table-column>
+      <el-table-column label="默认值"
+                       prop="fieldDefaultValue"
+                       align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.fieldDefaultValue }}</span>
         </template>
       </el-table-column>
       <el-table-column label="创建者ID"
@@ -130,6 +151,7 @@ export default {
     return {
       enums: {
         fieldType: enums.getFieldType(),
+        isKey: enums.getIsKey(),
         allowNull: enums.getAllowNull()
       },
       list: [],

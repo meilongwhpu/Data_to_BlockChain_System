@@ -20,7 +20,7 @@ import static io.nuls.data.pojo.example.OperateLogExample.*;
 public class OperateLogListVO extends AbstractVO {
 
     @ApiModelProperty(notes = N_ID, example = E_ID)
-    private String id;
+    private Integer id;
 
     @ApiModelProperty(notes = N_USER_ID, example = E_USER_ID)
     private String userId;
@@ -42,11 +42,11 @@ public class OperateLogListVO extends AbstractVO {
     private String remark;
 
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

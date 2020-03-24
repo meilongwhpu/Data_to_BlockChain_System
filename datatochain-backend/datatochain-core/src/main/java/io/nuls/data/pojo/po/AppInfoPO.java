@@ -16,7 +16,7 @@ public class AppInfoPO extends AbstractPO {
     /**
      * 主键ID
      */
-    private String id;
+    private Integer id;
 
     /**
      * 应用名称
@@ -50,11 +50,11 @@ public class AppInfoPO extends AbstractPO {
 
     private List<TablespaceInfoPO> tablespaceInfoPOList;
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

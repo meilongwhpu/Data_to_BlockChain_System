@@ -34,11 +34,17 @@ function initMockDataStage1() {
         8,
         9
       ],
-      'fieldLength': '@word(1, 10)',
+      'fieldLength|0-100': 1,
+      'fieldDecimalLength|0-100': 1,
+      'fieldIsKey|1': [
+        0,
+        1
+      ],
       'allowNull|1': [
         0,
         1
       ],
+      'fieldDefaultValue': '@word(1, 10)',
       'creatorId': '@word(1, 10)',
       'tableName': '@word(1, 10)'
     }]

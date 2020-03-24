@@ -15,12 +15,12 @@ public class TablestructureInfoPO extends AbstractPO {
     /**
      * 主键ID
      */
-    private String id;
+    private Integer id;
 
     /**
      * 表空间ID
      */
-    private String tablespaceId;
+    private Integer tablespaceId;
 
     /**
      * 表名称
@@ -47,19 +47,25 @@ public class TablestructureInfoPO extends AbstractPO {
      */
     private String creatorId;
 
-    public String getId() {
+    /**
+     * 是否创建表结构
+     * @see io.nuls.data.constant.IsCreate
+     */
+    private Boolean isCreate;
+
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getTablespaceId() {
+    public Integer getTablespaceId() {
         return this.tablespaceId;
     }
 
-    public void setTablespaceId(String tablespaceId) {
+    public void setTablespaceId(Integer tablespaceId) {
         this.tablespaceId = tablespaceId;
     }
 
@@ -101,6 +107,14 @@ public class TablestructureInfoPO extends AbstractPO {
 
     public void setCreatorId(String creatorId) {
         this.creatorId = creatorId;
+    }
+
+    public Boolean getIsCreate() {
+        return this.isCreate;
+    }
+
+    public void setIsCreate(Boolean isCreate) {
+        this.isCreate = isCreate;
     }
 
 

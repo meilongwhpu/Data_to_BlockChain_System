@@ -20,8 +20,7 @@ public class SystemDictUpdateDTO extends AbstractDTO {
 
     @ApiModelProperty(notes = N_ID,example = E_ID,required = true)
     @NotNull
-    @Length(max = 50)
-    private String id;
+    private Integer id;
 
     @ApiModelProperty(notes = N_DICT_KEY,example = E_DICT_KEY,required = true)
     @NotNull
@@ -38,11 +37,11 @@ public class SystemDictUpdateDTO extends AbstractDTO {
     private String dictDesc;
 
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

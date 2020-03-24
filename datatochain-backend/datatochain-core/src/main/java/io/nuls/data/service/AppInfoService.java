@@ -59,7 +59,7 @@ public class AppInfoService {
      */
     @Transactional(rollbackFor = RuntimeException.class)
     public AppInfoPO update(AppInfoUpdateDTO appInfoUpdateDTO) {
-        String id = appInfoUpdateDTO.getId();
+        Integer id = appInfoUpdateDTO.getId();
         AppInfoPO appInfo = this.getAppInfo(id, true);
         AppInfoMapper.INSTANCE.setUpdateDTO(appInfo, appInfoUpdateDTO);
         appInfoDAO.update(appInfo);
@@ -82,8 +82,8 @@ public class AppInfoService {
      *
      * @return
      */
-    public List<OptionVO<String, String>> findOptions(OptionQO<String, String> qo) {
-        List<OptionVO<String, String>> options = appInfoDAO.findOptions(qo);
+    public List<OptionVO<Integer, String>> findOptions(OptionQO<Integer, String> qo) {
+        List<OptionVO<Integer, String>> options = appInfoDAO.findOptions(qo);
         return options;
     }
 
@@ -94,7 +94,7 @@ public class AppInfoService {
      * @param force 是否强制获取
      * @return
      */
-    public AppInfoPO getAppInfo(String id, boolean force){
+    public AppInfoPO getAppInfo(Integer id, boolean force){
         return this.getAppInfo(id, false, force);
     }
 
@@ -106,7 +106,7 @@ public class AppInfoService {
      * @param force 是否强制获取
      * @return
      */
-    public AppInfoPO getAppInfo(String id, boolean withTablespaceInfo, boolean force){
+    public AppInfoPO getAppInfo(Integer id, boolean withTablespaceInfo, boolean force){
         AppInfoPO appInfo = appInfoDAO.findById(id);
         if (force && appInfo == null) {
             throw new BusinessException(ErrorCode.RECORD_NOT_FIND);
@@ -124,7 +124,7 @@ public class AppInfoService {
      * @param id
      * @return
      */
-    public AppInfoShowVO show(String id) {
+    public AppInfoShowVO show(Integer id) {
         AppInfoPO appInfo = this.getAppInfo(id, true);
         AppInfoShowVO showVO = AppInfoMapper.INSTANCE.toShowVO(appInfo);
         return showVO;
@@ -137,9 +137,9 @@ public class AppInfoService {
      * @return
      */
     @Transactional(rollbackFor = RuntimeException.class)
-    public int delete(String... ids) {
+    public int delete(Integer... ids) {
         int count = 0;
-        for (String id : ids) {
+        for (Integer id : ids) {
             count += appInfoDAO.delete(id);
         }
         return count;
@@ -152,9 +152,9 @@ public class AppInfoService {
      * @param tablespaceId
      * @return
      */
-    private int doAddTablespaceInfo(String id, String... tablespaceId) {
+    private int doAddTablespaceInfo(Integer id, Integer... tablespaceId) {
         int count = 0;
-        for (String _id : tablespaceId) {
+        for (Integer _id : tablespaceId) {
             if(tablespaceInfoDAO.exist(_id)){
                 count += appInfoDAO.addTablespaceInfo(id, _id);
             }
@@ -170,7 +170,7 @@ public class AppInfoService {
      * @return
      */
     @Transactional(rollbackFor = RuntimeException.class)
-    public int addTablespaceInfo(String id, String... tablespaceId) {
+    public int addTablespaceInfo(Integer id, Integer... tablespaceId) {
         AppInfoPO appInfo = this.getAppInfo(id, true);
         if(ArrayUtils.isEmpty(tablespaceId)){
             throw new BusinessException(ErrorCode.PARAM_IS_NULL);
@@ -186,7 +186,7 @@ public class AppInfoService {
      * @return
      */
     @Transactional(rollbackFor = RuntimeException.class)
-    public int removeTablespaceInfo(String id, String... tablespaceId) {
+    public int removeTablespaceInfo(Integer id, Integer... tablespaceId) {
         AppInfoPO appInfo = this.getAppInfo(id, true);
         if(ArrayUtils.isEmpty(tablespaceId)){
             throw new BusinessException(ErrorCode.PARAM_IS_NULL);

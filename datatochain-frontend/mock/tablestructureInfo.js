@@ -25,6 +25,10 @@ function initMockDataStage1() {
       'createTime': '@date(yyyy-MM-dd) 00:00:00',
       'updateTime': '@date(yyyy-MM-dd) 00:00:00',
       'creatorId': '@word(1, 10)',
+      'isCreate|1': [
+        0,
+        1
+      ],
       'tablespaceName': '@word(1, 10)'
     }]
   })

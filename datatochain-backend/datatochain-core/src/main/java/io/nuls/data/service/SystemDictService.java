@@ -49,7 +49,7 @@ public class SystemDictService {
      */
     @Transactional(rollbackFor = RuntimeException.class)
     public SystemDictPO update(SystemDictUpdateDTO systemDictUpdateDTO) {
-        String id = systemDictUpdateDTO.getId();
+        Integer id = systemDictUpdateDTO.getId();
         SystemDictPO systemDict = this.getSystemDict(id, true);
         SystemDictMapper.INSTANCE.setUpdateDTO(systemDict, systemDictUpdateDTO);
         systemDictDAO.update(systemDict);
@@ -74,7 +74,7 @@ public class SystemDictService {
      * @param force 是否强制获取
      * @return
      */
-    public SystemDictPO getSystemDict(String id, boolean force){
+    public SystemDictPO getSystemDict(Integer id, boolean force){
         SystemDictPO systemDict = systemDictDAO.findById(id);
         if (force && systemDict == null) {
             throw new BusinessException(ErrorCode.RECORD_NOT_FIND);
@@ -89,7 +89,7 @@ public class SystemDictService {
      * @param id
      * @return
      */
-    public SystemDictShowVO show(String id) {
+    public SystemDictShowVO show(Integer id) {
         SystemDictPO systemDict = this.getSystemDict(id, true);
         SystemDictShowVO showVO = SystemDictMapper.INSTANCE.toShowVO(systemDict);
         return showVO;
@@ -102,9 +102,9 @@ public class SystemDictService {
      * @return
      */
     @Transactional(rollbackFor = RuntimeException.class)
-    public int delete(String... ids) {
+    public int delete(Integer... ids) {
         int count = 0;
-        for (String id : ids) {
+        for (Integer id : ids) {
             count += systemDictDAO.delete(id);
         }
         return count;

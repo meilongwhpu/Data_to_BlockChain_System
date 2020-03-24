@@ -54,34 +54,34 @@ public interface TablestructureInfoAPI {
      * 查询【表结构】选项列表
      */
     @ApiOperation(value = "查询【表结构】选项列表")
-    ResponseEntity<List<OptionVO<String, String>>> findOptions(OptionQO<String, String> qo);
+    ResponseEntity<List<OptionVO<Integer, String>>> findOptions(OptionQO<Integer, String> qo);
 
     /**
      * 查看【表结构】详情
      */
     @ApiOperation(value="查看【表结构】详情")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "id", dataType = "String", value = "【表结构】id", paramType = "path"),
+        @ApiImplicitParam(name = "id", dataType = "int", value = "【表结构】id", paramType = "path"),
     })
-    ResponseEntity<TablestructureInfoShowVO> show(String id);
+    ResponseEntity<TablestructureInfoShowVO> show(Integer id);
 
     /**
      * 删除单个【表结构】
      */
     @ApiOperation(value="删除单个【表结构】")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "id", dataType = "String", value = "【表结构】id", paramType = "path"),
+        @ApiImplicitParam(name = "id", dataType = "int", value = "【表结构】id", paramType = "path"),
     })
-    ResponseEntity<Integer> delete(String id);
+    ResponseEntity<Integer> delete(Integer id);
 
     /**
      * 批量删除【表结构】
      */
     @ApiOperation(value = "批量删除【表结构】")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "id", dataType = "String", value = "id数组", paramType = "body"),
+        @ApiImplicitParam(name = "id", dataType = "int", value = "id数组", paramType = "body"),
     })
-    ResponseEntity<Integer> deleteBatch(String[] id);
+    ResponseEntity<Integer> deleteBatch(Integer[] id);
 
 }
 

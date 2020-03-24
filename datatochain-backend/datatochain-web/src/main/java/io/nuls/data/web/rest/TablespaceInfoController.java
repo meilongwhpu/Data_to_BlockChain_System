@@ -65,28 +65,28 @@ public class TablespaceInfoController extends AbstractController implements Tabl
 
     @Override
     @GetMapping(value = "/options")
-    public ResponseEntity<List<OptionVO<String, String>>> findOptions(OptionQO<String, String> qo) {
-        List<OptionVO<String, String>> options = tablespaceInfoService.findOptions(qo);
+    public ResponseEntity<List<OptionVO<Integer, String>>> findOptions(OptionQO<Integer, String> qo) {
+        List<OptionVO<Integer, String>> options = tablespaceInfoService.findOptions(qo);
         return ResponseEntity.ok(options);
     }
 
     @Override
     @GetMapping(value = "/{id}")
-    public ResponseEntity<TablespaceInfoShowVO> show(@PathVariable String id) {
+    public ResponseEntity<TablespaceInfoShowVO> show(@PathVariable Integer id) {
         TablespaceInfoShowVO tablespaceInfoShowVO = tablespaceInfoService.show(id);
         return ResponseEntity.ok(tablespaceInfoShowVO);
     }
 
     @Override
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Integer> delete(@PathVariable String id) {
+    public ResponseEntity<Integer> delete(@PathVariable Integer id) {
         int count = tablespaceInfoService.delete(id);
         return ResponseEntity.ok(count);
     }
 
     @Override
     @DeleteMapping
-    public ResponseEntity<Integer> deleteBatch(@RequestBody String[] id) {
+    public ResponseEntity<Integer> deleteBatch(@RequestBody Integer[] id) {
         if(ArrayUtils.isEmpty(id)){
             throw new BusinessException(ErrorCode.PARAM_IS_NULL);
         }

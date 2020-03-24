@@ -23,5 +23,7 @@ public class TablestructureInfoExample {
     public static final String E_UPDATE_TIME = "2020-03-16";
     public static final String N_CREATOR_ID = "创建者ID";
     public static final String E_CREATOR_ID = "0001";
+    public static final String N_IS_CREATE = "是否创建表结构";
+    public static final String E_IS_CREATE = "0";
 }
 

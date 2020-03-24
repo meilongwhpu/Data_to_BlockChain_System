@@ -15,7 +15,7 @@ public class OperateLogPO extends AbstractPO {
     /**
      * 主键ID
      */
-    private String id;
+    private Integer id;
 
     /**
      * 用户ID
@@ -47,11 +47,11 @@ public class OperateLogPO extends AbstractPO {
      */
     private String remark;
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

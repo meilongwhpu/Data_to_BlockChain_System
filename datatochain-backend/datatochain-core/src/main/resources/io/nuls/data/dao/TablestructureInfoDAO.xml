@@ -12,7 +12,8 @@
         ${alias}.table_desc as tableDesc,
         ${alias}.create_time as createTime,
         ${alias}.update_time as updateTime,
-        ${alias}.creator_id as creatorId
+        ${alias}.creator_id as creatorId,
+        ${alias}.is_create as isCreate
     </sql>
 
 
@@ -41,33 +42,36 @@
         table_desc,
         create_time,
         update_time,
-        creator_id
+        creator_id,
+        is_create
         ) VALUES (
-        #{id,jdbcType=VARCHAR},
-        #{tablespaceId,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
+        #{tablespaceId,jdbcType=INTEGER},
         #{tableName,jdbcType=VARCHAR},
         #{tableDesc,jdbcType=VARCHAR},
         #{createTime,jdbcType=TIMESTAMP},
         #{updateTime,jdbcType=TIMESTAMP},
-        #{creatorId,jdbcType=VARCHAR}
+        #{creatorId,jdbcType=VARCHAR},
+        #{isCreate,jdbcType=BOOLEAN}
         )
     </insert>
 
 
     <update id="_update" parameterType="TablestructureInfoPO">
         update nl_tablestructure_info set
-            tablespace_id=#{tablespaceId,jdbcType=VARCHAR},
+            tablespace_id=#{tablespaceId,jdbcType=INTEGER},
             `table_name`=#{tableName,jdbcType=VARCHAR},
             table_desc=#{tableDesc,jdbcType=VARCHAR},
             create_time=#{createTime,jdbcType=TIMESTAMP},
             update_time=#{updateTime,jdbcType=TIMESTAMP},
-            creator_id=#{creatorId,jdbcType=VARCHAR}
-        where id=#{id,jdbcType=VARCHAR}
+            creator_id=#{creatorId,jdbcType=VARCHAR},
+            is_create=#{isCreate,jdbcType=BOOLEAN}
+        where id=#{id,jdbcType=INTEGER}
     </update>
 
     <delete id="delete">
         delete from nl_tablestructure_info
-        where id=#{arg0,jdbcType=VARCHAR}
+        where id=#{arg0,jdbcType=INTEGER}
     </delete>
 
 
@@ -127,7 +131,7 @@
         limit #{limit}
     </select>
 
-    <select id="getCountByTablespaceId" parameterType="String" resultType="int">
+    <select id="getCountByTablespaceId" parameterType="Integer" resultType="int">
         select count(1)
         from nl_tablestructure_info t
         where

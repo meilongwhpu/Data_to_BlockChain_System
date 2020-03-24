@@ -43,7 +43,7 @@
         oper_ip,
         remark
         ) VALUES (
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
         #{userId,jdbcType=VARCHAR},
         #{operTime,jdbcType=TIMESTAMP},
         #{operSubject,jdbcType=VARCHAR},
@@ -62,12 +62,12 @@
             oper_detail=#{operDetail,jdbcType=VARCHAR},
             oper_ip=#{operIp,jdbcType=VARCHAR},
             remark=#{remark,jdbcType=VARCHAR}
-        where id=#{id,jdbcType=VARCHAR}
+        where id=#{id,jdbcType=INTEGER}
     </update>
 
     <delete id="delete">
         delete from nl_operate_log
-        where id=#{arg0,jdbcType=VARCHAR}
+        where id=#{arg0,jdbcType=INTEGER}
     </delete>
 
 

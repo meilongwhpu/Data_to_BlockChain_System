@@ -3,6 +3,7 @@ package io.nuls.data.pojo.vo;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.nuls.common.constant.JsonFieldConst;
 import io.nuls.common.pojo.vo.AbstractVO;
+import io.nuls.data.constant.IsCreate;
 import io.nuls.data.pojo.example.TablespaceInfoExample;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -21,7 +22,7 @@ import static io.nuls.data.pojo.example.TablestructureInfoExample.*;
 public class TablestructureInfoListVO extends AbstractVO {
 
     @ApiModelProperty(notes = N_ID, example = E_ID)
-    private String id;
+    private Integer id;
 
     @ApiModelProperty(notes = N_TABLE_NAME, example = E_TABLE_NAME)
     private String tableName;
@@ -40,15 +41,18 @@ public class TablestructureInfoListVO extends AbstractVO {
     @ApiModelProperty(notes = N_CREATOR_ID, example = E_CREATOR_ID)
     private String creatorId;
 
+    @ApiModelProperty(notes = N_IS_CREATE, example = E_IS_CREATE, allowableValues = IsCreate.VALUES_STR)
+    private Boolean isCreate;
+
     @ApiModelProperty(notes = TablespaceInfoExample.N_TABLESPACE_NAME, example = TablespaceInfoExample.E_TABLESPACE_NAME)
     private String tablespaceName;
 
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
@@ -90,6 +94,14 @@ public class TablestructureInfoListVO extends AbstractVO {
 
     public void setCreatorId(String creatorId) {
         this.creatorId = creatorId;
+    }
+
+    public Boolean getIsCreate() {
+        return this.isCreate;
+    }
+
+    public void setIsCreate(Boolean isCreate) {
+        this.isCreate = isCreate;
     }
 
     public String getTablespaceName() {

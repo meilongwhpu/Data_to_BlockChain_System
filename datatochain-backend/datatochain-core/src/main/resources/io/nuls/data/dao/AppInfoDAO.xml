@@ -43,7 +43,7 @@
         update_time,
         creator_id
         ) VALUES (
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
         #{appName,jdbcType=VARCHAR},
         #{appDesc,jdbcType=VARCHAR},
         #{appKey,jdbcType=VARCHAR},
@@ -62,12 +62,12 @@
             create_time=#{createTime,jdbcType=TIMESTAMP},
             update_time=#{updateTime,jdbcType=TIMESTAMP},
             creator_id=#{creatorId,jdbcType=VARCHAR}
-        where id=#{id,jdbcType=VARCHAR}
+        where id=#{id,jdbcType=INTEGER}
     </update>
 
     <delete id="delete">
         delete from nl_app_info
-        where id=#{arg0,jdbcType=VARCHAR}
+        where id=#{arg0,jdbcType=INTEGER}
     </delete>
 
 
@@ -119,7 +119,7 @@
         limit #{limit}
     </select>
 
-    <select id="getCountByTablespaceInfo" parameterType="String" resultType="int">
+    <select id="getCountByTablespaceInfo" parameterType="Integer" resultType="int">
         select count(1)
         from nl_app_info t
         inner join nl_app_relation_tablespace_info r
@@ -134,15 +134,15 @@
             tablespace_id,
             created_time
         )values(
-            #{appId,jdbcType=VARCHAR},
-            #{tablespaceId,jdbcType=VARCHAR},
+            #{appId,jdbcType=INTEGER},
+            #{tablespaceId,jdbcType=INTEGER},
             now()
         )
     </insert>
 
     <delete id="removeTablespaceInfo" parameterType="map">
         delete from nl_app_relation_tablespace_info
-        where app_id=#{appId,jdbcType=VARCHAR} and tablespace_id in
+        where app_id=#{appId,jdbcType=INTEGER} and tablespace_id in
         <foreach collection="tablespaceId" item="_id" open="(" separator="," close=")">
             #{_id}
         </foreach>

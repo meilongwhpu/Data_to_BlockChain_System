@@ -64,6 +64,13 @@
           <span>{{ row.creatorId }}</span>
         </template>
       </el-table-column>
+      <el-table-column label="是否创建"
+                       prop="isCreate"
+                       align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.isCreate | findEnumLabel(enums.isCreate) }}</span>
+        </template>
+      </el-table-column>
       <el-table-column label="表空间名称"
                        prop="tablespaceName"
                        align="center">
@@ -98,6 +105,7 @@ import tablestructureInfoAdd from './add'
 import tablestructureInfoEdit from './edit'
 import tablestructureInfoShow from './show'
 import tablestructureInfoApi from '@/api/tablestructureInfo'
+import enums from '@/utils/enums'
 import Pagination from '@/components/Pagination'
 
 export default {
@@ -108,8 +116,14 @@ export default {
     tablestructureInfoEdit,
     tablestructureInfoShow
   },
+  filters: {
+    findEnumLabel: enums.findEnumLabel
+  },
   data() {
     return {
+      enums: {
+        isCreate: enums.getIsCreate()
+      },
       list: [],
       total: 0,
       listLoading: true,

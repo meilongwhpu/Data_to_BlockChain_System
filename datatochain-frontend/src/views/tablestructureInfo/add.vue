@@ -23,6 +23,12 @@
       <el-form-item label="创建者ID" prop="creatorId">
         <el-input v-model="form.creatorId"/>
       </el-form-item>
+      <el-form-item label="是否创建" prop="isCreate">
+        <el-radio-group v-model="form.isCreate">
+          <el-radio :label="true">是</el-radio>
+          <el-radio :label="false">否</el-radio>
+        </el-radio-group>
+      </el-form-item>
     </el-form>
     <div slot="footer" class="dialog-footer">
       <el-button @click="formVisible = false">
@@ -45,7 +51,8 @@ function initFormBean() {
     tablespaceId: null,
     tableName: null,
     tableDesc: null,
-    creatorId: null
+    creatorId: null,
+    isCreate: null
   }
   return formBean
 }
@@ -72,6 +79,8 @@ export default {
         ],
         creatorId: [
           { max: 50, message: '长度不能超过50个字符', trigger: 'blur' }
+        ],
+        isCreate: [
         ]
       }
     }

@@ -14,12 +14,12 @@ public class TablefieldInfoPO extends AbstractPO {
     /**
      * 主键ID
      */
-    private String id;
+    private Integer id;
 
     /**
      * 表结构ID
      */
-    private String tableId;
+    private Integer tableId;
 
     /**
      * 字段名称
@@ -40,7 +40,18 @@ public class TablefieldInfoPO extends AbstractPO {
     /**
      * 字段长度
      */
-    private String fieldLength;
+    private Integer fieldLength;
+
+    /**
+     * 类型小数长度
+     */
+    private Integer fieldDecimalLength;
+
+    /**
+     * 是否为主键
+     * @see io.nuls.data.constant.IsKey
+     */
+    private Boolean fieldIsKey;
 
     /**
      * 是否允许为空
@@ -49,23 +60,28 @@ public class TablefieldInfoPO extends AbstractPO {
     private Integer allowNull;
 
     /**
+     * 字段默认值
+     */
+    private String fieldDefaultValue;
+
+    /**
      * 创建者ID
      */
     private String creatorId;
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 
-    public String getTableId() {
+    public Integer getTableId() {
         return this.tableId;
     }
 
-    public void setTableId(String tableId) {
+    public void setTableId(Integer tableId) {
         this.tableId = tableId;
     }
 
@@ -93,12 +109,28 @@ public class TablefieldInfoPO extends AbstractPO {
         this.fieldType = fieldType;
     }
 
-    public String getFieldLength() {
+    public Integer getFieldLength() {
         return this.fieldLength;
     }
 
-    public void setFieldLength(String fieldLength) {
+    public void setFieldLength(Integer fieldLength) {
         this.fieldLength = fieldLength;
+    }
+
+    public Integer getFieldDecimalLength() {
+        return this.fieldDecimalLength;
+    }
+
+    public void setFieldDecimalLength(Integer fieldDecimalLength) {
+        this.fieldDecimalLength = fieldDecimalLength;
+    }
+
+    public Boolean getFieldIsKey() {
+        return this.fieldIsKey;
+    }
+
+    public void setFieldIsKey(Boolean fieldIsKey) {
+        this.fieldIsKey = fieldIsKey;
     }
 
     public Integer getAllowNull() {
@@ -107,6 +139,14 @@ public class TablefieldInfoPO extends AbstractPO {
 
     public void setAllowNull(Integer allowNull) {
         this.allowNull = allowNull;
+    }
+
+    public String getFieldDefaultValue() {
+        return this.fieldDefaultValue;
+    }
+
+    public void setFieldDefaultValue(String fieldDefaultValue) {
+        this.fieldDefaultValue = fieldDefaultValue;
     }
 
     public String getCreatorId() {

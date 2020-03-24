@@ -1,5 +1,6 @@
 package io.nuls.data.help;
 
+import io.nuls.common.util.SafeUtil;
 import io.nuls.data.pojo.dto.*;
 import io.nuls.data.pojo.po.*;
 import io.nuls.data.service.TablestructureInfoService;
@@ -18,12 +19,13 @@ public class TablestructureInfoHelper {
      * 生成add测试数据
      * @return
      */
-    public TablestructureInfoAddDTO getTablestructureInfoAddDTO(String tablespaceId){
+    public TablestructureInfoAddDTO getTablestructureInfoAddDTO(Integer tablespaceId){
         TablestructureInfoAddDTO dto = new TablestructureInfoAddDTO();
         dto.setTablespaceId(tablespaceId);
         dto.setTableName(E_TABLE_NAME);
         dto.setTableDesc(E_TABLE_DESC);
         dto.setCreatorId(E_CREATOR_ID);
+        dto.setIsCreate(SafeUtil.getBoolean(E_IS_CREATE));
         return dto;
     }
 
@@ -44,7 +46,7 @@ public class TablestructureInfoHelper {
      * 保存示例
      * @return
      */
-    public TablestructureInfoPO saveTablestructureInfoExample(String tablespaceId){
+    public TablestructureInfoPO saveTablestructureInfoExample(Integer tablespaceId){
         TablestructureInfoAddDTO addDTO = this.getTablestructureInfoAddDTO(tablespaceId);
         return tablestructureInfoService.save(addDTO);
     }

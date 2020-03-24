@@ -55,63 +55,63 @@ public interface AppInfoAPI {
      * 查询【应用】选项列表
      */
     @ApiOperation(value = "查询【应用】选项列表")
-    ResponseEntity<List<OptionVO<String, String>>> findOptions(OptionQO<String, String> qo);
+    ResponseEntity<List<OptionVO<Integer, String>>> findOptions(OptionQO<Integer, String> qo);
 
     /**
      * 查看【应用】详情
      */
     @ApiOperation(value="查看【应用】详情")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "id", dataType = "String", value = "【应用】id", paramType = "path"),
+        @ApiImplicitParam(name = "id", dataType = "int", value = "【应用】id", paramType = "path"),
     })
-    ResponseEntity<AppInfoShowVO> show(String id);
+    ResponseEntity<AppInfoShowVO> show(Integer id);
 
     /**
      * 删除单个【应用】
      */
     @ApiOperation(value="删除单个【应用】")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "id", dataType = "String", value = "【应用】id", paramType = "path"),
+        @ApiImplicitParam(name = "id", dataType = "int", value = "【应用】id", paramType = "path"),
     })
-    ResponseEntity<Integer> delete(String id);
+    ResponseEntity<Integer> delete(Integer id);
 
     /**
      * 批量删除【应用】
      */
     @ApiOperation(value = "批量删除【应用】")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "id", dataType = "String", value = "id数组", paramType = "body"),
+        @ApiImplicitParam(name = "id", dataType = "int", value = "id数组", paramType = "body"),
     })
-    ResponseEntity<Integer> deleteBatch(String[] id);
+    ResponseEntity<Integer> deleteBatch(Integer[] id);
 
     /**
      * 获取【表空间】关联
      */
     @ApiOperation(value="获取【表空间】关联")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "id", dataType = "String", value = "【应用】id", paramType = "path"),
+        @ApiImplicitParam(name = "id", dataType = "int", value = "【应用】id", paramType = "path"),
     })
-    ResponseEntity<List<TablespaceInfoListVO>> fetchTablespaceInfoList(String id);
+    ResponseEntity<List<TablespaceInfoListVO>> fetchTablespaceInfoList(Integer id);
 
     /**
      * 添加【表空间】关联
      */
     @ApiOperation(value="添加【表空间】关联")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "id", dataType = "String", value = "【应用】id", paramType = "path"),
-        @ApiImplicitParam(name = "tablespaceId", dataType = "String", value = "【表空间】id数组", paramType = "body"),
+        @ApiImplicitParam(name = "id", dataType = "int", value = "【应用】id", paramType = "path"),
+        @ApiImplicitParam(name = "tablespaceId", dataType = "int", value = "【表空间】id数组", paramType = "body"),
     })
-    ResponseEntity<Integer> addTablespaceInfo(String id,String[] tablespaceId);
+    ResponseEntity<Integer> addTablespaceInfo(Integer id,Integer[] tablespaceId);
 
     /**
      * 移除【表空间】关联
      */
     @ApiOperation(value="移除【表空间】关联")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "id", dataType = "String", value = "【应用】id", paramType = "path"),
-        @ApiImplicitParam(name = "tablespaceId", dataType = "String", value = "【表空间】id数组", paramType = "body"),
+        @ApiImplicitParam(name = "id", dataType = "int", value = "【应用】id", paramType = "path"),
+        @ApiImplicitParam(name = "tablespaceId", dataType = "int", value = "【表空间】id数组", paramType = "body"),
     })
-    ResponseEntity<Integer> removeTablespaceInfo(String id,String[] tablespaceId);
+    ResponseEntity<Integer> removeTablespaceInfo(Integer id,Integer[] tablespaceId);
 
 }
 

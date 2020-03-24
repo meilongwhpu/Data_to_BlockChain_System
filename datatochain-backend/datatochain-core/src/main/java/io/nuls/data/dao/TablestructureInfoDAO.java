@@ -19,9 +19,9 @@ import java.util.List;
 @Mapper
 public interface TablestructureInfoDAO extends DAO<TablestructureInfoPO> {
 
-    List<OptionVO<String, String>> findOptions(OptionQO<String, String> qo);
+    List<OptionVO<Integer, String>> findOptions(OptionQO<Integer, String> qo);
 
-    int getCountByTablespaceId(String tablespaceId);
+    int getCountByTablespaceId(Integer tablespaceId);
 
 
 }

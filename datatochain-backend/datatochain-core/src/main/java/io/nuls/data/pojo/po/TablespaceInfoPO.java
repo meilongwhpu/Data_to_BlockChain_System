@@ -16,7 +16,7 @@ public class TablespaceInfoPO extends AbstractPO {
     /**
      * 主键ID
      */
-    private String id;
+    private Integer id;
 
     /**
      * 表空间名称
@@ -61,11 +61,11 @@ public class TablespaceInfoPO extends AbstractPO {
      */
     private String creatorId;
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

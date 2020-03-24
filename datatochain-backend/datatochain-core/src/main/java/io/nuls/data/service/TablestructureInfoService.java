@@ -66,7 +66,7 @@ public class TablestructureInfoService {
      */
     @Transactional(rollbackFor = RuntimeException.class)
     public TablestructureInfoPO update(TablestructureInfoUpdateDTO tablestructureInfoUpdateDTO) {
-        String id = tablestructureInfoUpdateDTO.getId();
+        Integer id = tablestructureInfoUpdateDTO.getId();
         TablestructureInfoPO tablestructureInfo = this.getTablestructureInfo(id, true);
         TablestructureInfoMapper.INSTANCE.setUpdateDTO(tablestructureInfo, tablestructureInfoUpdateDTO);
         tablestructureInfoDAO.update(tablestructureInfo);
@@ -89,8 +89,8 @@ public class TablestructureInfoService {
      *
      * @return
      */
-    public List<OptionVO<String, String>> findOptions(OptionQO<String, String> qo) {
-        List<OptionVO<String, String>> options = tablestructureInfoDAO.findOptions(qo);
+    public List<OptionVO<Integer, String>> findOptions(OptionQO<Integer, String> qo) {
+        List<OptionVO<Integer, String>> options = tablestructureInfoDAO.findOptions(qo);
         return options;
     }
 
@@ -101,7 +101,7 @@ public class TablestructureInfoService {
      * @param force 是否强制获取
      * @return
      */
-    public TablestructureInfoPO getTablestructureInfo(String id, boolean force){
+    public TablestructureInfoPO getTablestructureInfo(Integer id, boolean force){
         TablestructureInfoPO tablestructureInfo = tablestructureInfoDAO.findById(id);
         if (force && tablestructureInfo == null) {
             throw new BusinessException(ErrorCode.RECORD_NOT_FIND);
@@ -116,7 +116,7 @@ public class TablestructureInfoService {
      * @param id
      * @return
      */
-    public TablestructureInfoShowVO show(String id) {
+    public TablestructureInfoShowVO show(Integer id) {
         TablestructureInfoPO tablestructureInfo = this.getTablestructureInfo(id, true);
         TablestructureInfoShowVO showVO = TablestructureInfoMapper.INSTANCE.toShowVO(tablestructureInfo);
         if(tablestructureInfo.getTablespaceId()!=null){
@@ -133,9 +133,9 @@ public class TablestructureInfoService {
      * @return
      */
     @Transactional(rollbackFor = RuntimeException.class)
-    public int delete(String... ids) {
+    public int delete(Integer... ids) {
         int count = 0;
-        for (String id : ids) {
+        for (Integer id : ids) {
             this.checkDeleteByTablefieldInfo(id);
             count += tablestructureInfoDAO.delete(id);
         }
@@ -147,7 +147,7 @@ public class TablestructureInfoService {
      *
      * @param id
      */
-    private void checkDeleteByTablefieldInfo(String id) {
+    private void checkDeleteByTablefieldInfo(Integer id) {
         int count = tablefieldInfoDAO.getCountByTableId(id);
         if(count>0){
             throw new BusinessException(ErrorCode.CASCADE_DELETE_ERROR);

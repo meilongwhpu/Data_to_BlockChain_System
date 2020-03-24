@@ -21,8 +21,14 @@ public class TablefieldInfoExample {
     public static final String E_FIELD_TYPE = "TINYINT";
     public static final String N_FIELD_LENGTH = "字段长度";
     public static final String E_FIELD_LENGTH = "10";
+    public static final String N_FIELD_DECIMAL_LENGTH = "类型小数长度";
+    public static final String E_FIELD_DECIMAL_LENGTH = "0";
+    public static final String N_FIELD_IS_KEY = "是否为主键";
+    public static final String E_FIELD_IS_KEY = "是";
     public static final String N_ALLOW_NULL = "是否允许为空";
     public static final String E_ALLOW_NULL = "0";
+    public static final String N_FIELD_DEFAULT_VALUE = "字段默认值";
+    public static final String E_FIELD_DEFAULT_VALUE = "0";
     public static final String N_CREATOR_ID = "创建者ID";
     public static final String E_CREATOR_ID = "0001";
 }

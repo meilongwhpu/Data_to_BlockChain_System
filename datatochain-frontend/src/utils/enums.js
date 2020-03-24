@@ -152,6 +152,32 @@ function getAllowNull() {
   }
 }
 
+function getIsCreate() {
+  return {
+    'NO': {
+      value: 0,
+      label: '未创建'
+    },
+    'YES': {
+      value: 1,
+      label: '已创建'
+    }
+  }
+}
+
+function getIsKey() {
+  return {
+    'NO': {
+      value: 0,
+      label: '否'
+    },
+    'YES': {
+      value: 1,
+      label: '是'
+    }
+  }
+}
+
 export default {
   getRelationStatus,
   getCodeMode,
@@ -159,6 +185,8 @@ export default {
   getChainType,
   getFieldType,
   getAllowNull,
+  getIsCreate,
+  getIsKey,
   findEnumLabel(value, enums) {
     for (const key in enums) {
       const item = enums[key]

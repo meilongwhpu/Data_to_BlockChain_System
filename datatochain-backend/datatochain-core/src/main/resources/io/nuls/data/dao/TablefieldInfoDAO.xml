@@ -12,7 +12,10 @@
         ${alias}.field_desc as fieldDesc,
         ${alias}.field_type as fieldType,
         ${alias}.field_length as fieldLength,
+        ${alias}.field_decimal_length as fieldDecimalLength,
+        ${alias}.field_is_key as fieldIsKey,
         ${alias}.allow_null as allowNull,
+        ${alias}.field_default_value as fieldDefaultValue,
         ${alias}.creator_id as creatorId
     </sql>
 
@@ -42,16 +45,22 @@
         field_desc,
         field_type,
         field_length,
+        field_decimal_length,
+        field_is_key,
         allow_null,
+        field_default_value,
         creator_id
         ) VALUES (
-        #{id,jdbcType=VARCHAR},
-        #{tableId,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
+        #{tableId,jdbcType=INTEGER},
         #{fieldName,jdbcType=VARCHAR},
         #{fieldDesc,jdbcType=VARCHAR},
         #{fieldType,jdbcType=INTEGER},
-        #{fieldLength,jdbcType=VARCHAR},
+        #{fieldLength,jdbcType=INTEGER},
+        #{fieldDecimalLength,jdbcType=INTEGER},
+        #{fieldIsKey,jdbcType=BOOLEAN},
         #{allowNull,jdbcType=INTEGER},
+        #{fieldDefaultValue,jdbcType=VARCHAR},
         #{creatorId,jdbcType=VARCHAR}
         )
     </insert>
@@ -59,19 +68,22 @@
 
     <update id="_update" parameterType="TablefieldInfoPO">
         update nl_tablefield_info set
-            table_id=#{tableId,jdbcType=VARCHAR},
+            table_id=#{tableId,jdbcType=INTEGER},
             field_name=#{fieldName,jdbcType=VARCHAR},
             field_desc=#{fieldDesc,jdbcType=VARCHAR},
             field_type=#{fieldType,jdbcType=INTEGER},
-            field_length=#{fieldLength,jdbcType=VARCHAR},
+            field_length=#{fieldLength,jdbcType=INTEGER},
+            field_decimal_length=#{fieldDecimalLength,jdbcType=INTEGER},
+            field_is_key=#{fieldIsKey,jdbcType=BOOLEAN},
             allow_null=#{allowNull,jdbcType=INTEGER},
+            field_default_value=#{fieldDefaultValue,jdbcType=VARCHAR},
             creator_id=#{creatorId,jdbcType=VARCHAR}
-        where id=#{id,jdbcType=VARCHAR}
+        where id=#{id,jdbcType=INTEGER}
     </update>
 
     <delete id="delete">
         delete from nl_tablefield_info
-        where id=#{arg0,jdbcType=VARCHAR}
+        where id=#{arg0,jdbcType=INTEGER}
     </delete>
 
 
@@ -114,7 +126,7 @@
         limit #{startIndex},#{pageSize}
     </select>
 
-    <select id="getCountByTableId" parameterType="String" resultType="int">
+    <select id="getCountByTableId" parameterType="Integer" resultType="int">
         select count(1)
         from nl_tablefield_info t
         where

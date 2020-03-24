@@ -47,7 +47,7 @@
         update_time,
         creator_id
         ) VALUES (
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
         #{tablespaceName,jdbcType=VARCHAR},
         #{tablespaceDesc,jdbcType=VARCHAR},
         #{codeMode,jdbcType=INTEGER},
@@ -70,12 +70,12 @@
             create_time=#{createTime,jdbcType=TIMESTAMP},
             update_time=#{updateTime,jdbcType=TIMESTAMP},
             creator_id=#{creatorId,jdbcType=VARCHAR}
-        where id=#{id,jdbcType=VARCHAR}
+        where id=#{id,jdbcType=INTEGER}
     </update>
 
     <delete id="delete">
         delete from nl_tablespace_info
-        where id=#{arg0,jdbcType=VARCHAR}
+        where id=#{arg0,jdbcType=INTEGER}
     </delete>
 
 
@@ -122,7 +122,7 @@
         limit #{limit}
     </select>
 
-    <select id="findByAppInfo" parameterType="String" resultType="TablespaceInfoPO">
+    <select id="findByAppInfo" parameterType="Integer" resultType="TablespaceInfoPO">
         select
             <include refid="tablespaceInfoColumns"><property name="alias" value="t"/></include>
         from nl_tablespace_info t

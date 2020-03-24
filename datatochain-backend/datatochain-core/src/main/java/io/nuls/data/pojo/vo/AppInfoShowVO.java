@@ -20,7 +20,7 @@ import static io.nuls.data.pojo.example.AppInfoExample.*;
 public class AppInfoShowVO extends AbstractVO {
 
     @ApiModelProperty(notes = N_ID,example = E_ID)
-    private String id;
+    private Integer id;
 
     @ApiModelProperty(notes = N_APP_NAME,example = E_APP_NAME)
     private String appName;
@@ -43,11 +43,11 @@ public class AppInfoShowVO extends AbstractVO {
     private String creatorId;
 
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

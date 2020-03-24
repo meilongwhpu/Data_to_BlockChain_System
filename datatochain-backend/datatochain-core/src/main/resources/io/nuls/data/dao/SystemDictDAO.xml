@@ -37,7 +37,7 @@
         dict_value,
         dict_desc
         ) VALUES (
-        #{id,jdbcType=VARCHAR},
+        #{id,jdbcType=INTEGER},
         #{dictKey,jdbcType=VARCHAR},
         #{dictValue,jdbcType=VARCHAR},
         #{dictDesc,jdbcType=VARCHAR}
@@ -50,12 +50,12 @@
             dict_key=#{dictKey,jdbcType=VARCHAR},
             dict_value=#{dictValue,jdbcType=VARCHAR},
             dict_desc=#{dictDesc,jdbcType=VARCHAR}
-        where id=#{id,jdbcType=VARCHAR}
+        where id=#{id,jdbcType=INTEGER}
     </update>
 
     <delete id="delete">
         delete from nl_system_dict
-        where id=#{arg0,jdbcType=VARCHAR}
+        where id=#{arg0,jdbcType=INTEGER}
     </delete>
 
 

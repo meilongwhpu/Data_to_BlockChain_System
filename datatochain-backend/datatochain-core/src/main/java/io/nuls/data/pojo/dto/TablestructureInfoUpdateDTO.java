@@ -20,8 +20,7 @@ public class TablestructureInfoUpdateDTO extends AbstractDTO {
 
     @ApiModelProperty(notes = N_ID,example = E_ID,required = true)
     @NotNull
-    @Length(max = 50)
-    private String id;
+    private Integer id;
 
     @ApiModelProperty(notes = N_TABLE_NAME,example = E_TABLE_NAME,required = true)
     @NotNull
@@ -33,11 +32,11 @@ public class TablestructureInfoUpdateDTO extends AbstractDTO {
     private String tableDesc;
 
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -33,6 +33,11 @@
           {{ form.creatorId }}
         </span>
       </el-form-item>
+      <el-form-item label="是否创建">
+        <span class="form-item-show">
+          {{ form.isCreate | findEnumLabel(enums.isCreate) }}
+        </span>
+      </el-form-item>
       <el-form-item label="表空间名称">
         <span class="form-item-show">
           {{ form.tablespaceName }}
@@ -49,18 +54,26 @@
 
 <script>
 import tablestructureInfoApi from '@/api/tablestructureInfo'
+import enums from '@/utils/enums'
 
 export default {
   name: 'TablestructureInfoShow',
+  filters: {
+    findEnumLabel: enums.findEnumLabel
+  },
   data() {
     return {
+      enums: {
+        isCreate: enums.getIsCreate()
+      },
       form: {
         id: null,
         tableName: null,
         tableDesc: null,
         createTime: null,
         updateTime: null,
-        creatorId: null
+        creatorId: null,
+        isCreate: null
       },
       formVisible: false
     }

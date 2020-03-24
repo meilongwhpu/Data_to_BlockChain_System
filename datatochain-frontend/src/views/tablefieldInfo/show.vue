@@ -28,9 +28,24 @@
           {{ form.fieldLength }}
         </span>
       </el-form-item>
+      <el-form-item label="类型小数长度">
+        <span class="form-item-show">
+          {{ form.fieldDecimalLength }}
+        </span>
+      </el-form-item>
+      <el-form-item label="是否主键">
+        <span class="form-item-show">
+          {{ form.fieldIsKey | findEnumLabel(enums.isKey) }}
+        </span>
+      </el-form-item>
       <el-form-item label="是否允许为空">
         <span class="form-item-show">
           {{ form.allowNull | findEnumLabel(enums.allowNull) }}
+        </span>
+      </el-form-item>
+      <el-form-item label="默认值">
+        <span class="form-item-show">
+          {{ form.fieldDefaultValue }}
         </span>
       </el-form-item>
       <el-form-item label="创建者ID">
@@ -65,6 +80,7 @@ export default {
     return {
       enums: {
         fieldType: enums.getFieldType(),
+        isKey: enums.getIsKey(),
         allowNull: enums.getAllowNull()
       },
       form: {
@@ -74,7 +90,10 @@ export default {
         fieldDesc: null,
         fieldType: null,
         fieldLength: null,
+        fieldDecimalLength: null,
+        fieldIsKey: null,
         allowNull: null,
+        fieldDefaultValue: null,
         creatorId: null
       },
       formVisible: false

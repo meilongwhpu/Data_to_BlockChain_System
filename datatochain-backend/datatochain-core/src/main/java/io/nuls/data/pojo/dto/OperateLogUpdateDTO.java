@@ -3,7 +3,6 @@ package io.nuls.data.pojo.dto;
 import io.nuls.common.pojo.dto.AbstractDTO;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
-import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 
@@ -20,15 +19,14 @@ public class OperateLogUpdateDTO extends AbstractDTO {
 
     @ApiModelProperty(notes = N_ID,example = E_ID,required = true)
     @NotNull
-    @Length(max = 50)
-    private String id;
+    private Integer id;
 
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

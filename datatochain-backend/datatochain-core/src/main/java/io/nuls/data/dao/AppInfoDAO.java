@@ -20,15 +20,15 @@ import java.util.List;
 @Mapper
 public interface AppInfoDAO extends DAO<AppInfoPO> {
 
-    List<OptionVO<String, String>> findOptions(OptionQO<String, String> qo);
+    List<OptionVO<Integer, String>> findOptions(OptionQO<Integer, String> qo);
 
-    int getCountByTablespaceInfo(String tablespaceId);
+    int getCountByTablespaceInfo(Integer tablespaceId);
 
-    int addTablespaceInfo(@Param("appId")String appId,@Param("tablespaceId")String tablespaceId);
+    int addTablespaceInfo(@Param("appId")Integer appId,@Param("tablespaceId")Integer tablespaceId);
 
-    int removeTablespaceInfo(@Param("appId")String appId,@Param("tablespaceId")String[] tablespaceId);
+    int removeTablespaceInfo(@Param("appId")Integer appId,@Param("tablespaceId")Integer[] tablespaceId);
 
-    int removeAllTablespaceInfo(String appId);
+    int removeAllTablespaceInfo(Integer appId);
 
 
 }

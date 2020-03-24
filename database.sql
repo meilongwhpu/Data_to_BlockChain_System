@@ -200,6 +200,7 @@ create table nl_tablestructure_info
    create_time         datetime not null comment '创建时间',
    update_time         datetime not null comment '更新时间',
    creator_id          varchar(50) not null comment '用户ID',
+   is_create           TINYINT not null default 0 comment '是否生成表结构：0:-否；1-是',
    primary key (id)
 );
 
@@ -215,8 +216,11 @@ create table nl_tablefield_info
    field_name            varchar(50)  not null comment '字段名称',
    field_desc             varchar(50)  not null comment '字段名称',
    field_type             varchar(10)  not null comment '字段类型:TINYINT,FLOAT,DECIMAL,DATETIME,TIMESTAMP,CHAR,VARCHAR,BLOB,TEXT',
-   field_length            varchar(10)  not null comment '字段长度',
+   field_length            TINYINT not null default 0 comment '字段长度',
+   field_is_key            TINYINT not null default 0 comment '是否为主键：0:-否；1-是', 
+   field_decimal_length    TINYINT not null default 0 comment '类型小数长度',
    allow_null              TINYINT not null default 0 comment '是否允许为空：0:-允许；1-不允许',
+   field_default_value     varchar(50)  not null comment '字段默认值',
    creator_id           varchar(50) not null comment '用户ID',
    primary key (id)
 );

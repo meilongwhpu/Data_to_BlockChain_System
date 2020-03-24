@@ -68,28 +68,28 @@ public class AppInfoController extends AbstractController implements AppInfoAPI 
 
     @Override
     @GetMapping(value = "/options")
-    public ResponseEntity<List<OptionVO<String, String>>> findOptions(OptionQO<String, String> qo) {
-        List<OptionVO<String, String>> options = appInfoService.findOptions(qo);
+    public ResponseEntity<List<OptionVO<Integer, String>>> findOptions(OptionQO<Integer, String> qo) {
+        List<OptionVO<Integer, String>> options = appInfoService.findOptions(qo);
         return ResponseEntity.ok(options);
     }
 
     @Override
     @GetMapping(value = "/{id}")
-    public ResponseEntity<AppInfoShowVO> show(@PathVariable String id) {
+    public ResponseEntity<AppInfoShowVO> show(@PathVariable Integer id) {
         AppInfoShowVO appInfoShowVO = appInfoService.show(id);
         return ResponseEntity.ok(appInfoShowVO);
     }
 
     @Override
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Integer> delete(@PathVariable String id) {
+    public ResponseEntity<Integer> delete(@PathVariable Integer id) {
         int count = appInfoService.delete(id);
         return ResponseEntity.ok(count);
     }
 
     @Override
     @DeleteMapping
-    public ResponseEntity<Integer> deleteBatch(@RequestBody String[] id) {
+    public ResponseEntity<Integer> deleteBatch(@RequestBody Integer[] id) {
         if(ArrayUtils.isEmpty(id)){
             throw new BusinessException(ErrorCode.PARAM_IS_NULL);
         }
@@ -99,7 +99,7 @@ public class AppInfoController extends AbstractController implements AppInfoAPI 
 
     @Override
     @GetMapping(value = "/{id}/tablespaceInfo")
-    public ResponseEntity<List<TablespaceInfoListVO>> fetchTablespaceInfoList(@PathVariable String id) {
+    public ResponseEntity<List<TablespaceInfoListVO>> fetchTablespaceInfoList(@PathVariable Integer id) {
         AppInfoPO appInfo = appInfoService.getAppInfo(id, true, true);
         List<TablespaceInfoPO> list = appInfo.getTablespaceInfoPOList();
         return ResponseEntity.ok(TablespaceInfoMapper.INSTANCE.toListVOList(list));
@@ -107,16 +107,16 @@ public class AppInfoController extends AbstractController implements AppInfoAPI 
 
     @Override
     @PostMapping(value = "/{id}/tablespaceInfo")
-    public ResponseEntity<Integer> addTablespaceInfo(@PathVariable String id,
-                        @RequestBody String[] tablespaceId) {
+    public ResponseEntity<Integer> addTablespaceInfo(@PathVariable Integer id,
+                        @RequestBody Integer[] tablespaceId) {
         int count = appInfoService.addTablespaceInfo(id, tablespaceId);
         return ResponseEntity.ok(count);
     }
 
     @Override
     @DeleteMapping(value = "/{id}/tablespaceInfo")
-    public ResponseEntity<Integer> removeTablespaceInfo(@PathVariable String id,
-                        @RequestBody String[] tablespaceId) {
+    public ResponseEntity<Integer> removeTablespaceInfo(@PathVariable Integer id,
+                        @RequestBody Integer[] tablespaceId) {
         int count = appInfoService.removeTablespaceInfo(id, tablespaceId);
         return ResponseEntity.ok(count);
     }

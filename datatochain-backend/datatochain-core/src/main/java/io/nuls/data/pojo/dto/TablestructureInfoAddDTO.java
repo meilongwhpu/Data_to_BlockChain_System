@@ -2,6 +2,8 @@
 package io.nuls.data.pojo.dto;
 
 import io.nuls.common.pojo.dto.AbstractDTO;
+import io.nuls.common.validator.Const;
+import io.nuls.data.constant.IsCreate;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.Length;
@@ -21,8 +23,7 @@ public class TablestructureInfoAddDTO extends AbstractDTO {
 
     @ApiModelProperty(notes = N_TABLESPACE_ID, example = E_TABLESPACE_ID, required = true)
     @NotNull
-    @Length(max = 50)
-    private String tablespaceId;
+    private Integer tablespaceId;
 
     @ApiModelProperty(notes = N_TABLE_NAME, example = E_TABLE_NAME, required = true)
     @NotNull
@@ -37,12 +38,16 @@ public class TablestructureInfoAddDTO extends AbstractDTO {
     @Length(max = 50)
     private String creatorId;
 
+    @ApiModelProperty(notes = N_IS_CREATE, example = E_IS_CREATE, allowableValues = IsCreate.VALUES_STR)
+    @Const(constClass = IsCreate.class)
+    private Boolean isCreate;
 
-    public String getTablespaceId() {
+
+    public Integer getTablespaceId() {
         return this.tablespaceId;
     }
 
-    public void setTablespaceId(String tablespaceId) {
+    public void setTablespaceId(Integer tablespaceId) {
         this.tablespaceId = tablespaceId;
     }
 
@@ -68,6 +73,14 @@ public class TablestructureInfoAddDTO extends AbstractDTO {
 
     public void setCreatorId(String creatorId) {
         this.creatorId = creatorId;
+    }
+
+    public Boolean getIsCreate() {
+        return this.isCreate;
+    }
+
+    public void setIsCreate(Boolean isCreate) {
+        this.isCreate = isCreate;
     }
 
 }

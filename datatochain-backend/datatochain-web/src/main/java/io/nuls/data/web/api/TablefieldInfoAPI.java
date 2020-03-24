@@ -51,27 +51,27 @@ public interface TablefieldInfoAPI {
      */
     @ApiOperation(value="查看【表字段】详情")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "id", dataType = "String", value = "【表字段】id", paramType = "path"),
+        @ApiImplicitParam(name = "id", dataType = "int", value = "【表字段】id", paramType = "path"),
     })
-    ResponseEntity<TablefieldInfoShowVO> show(String id);
+    ResponseEntity<TablefieldInfoShowVO> show(Integer id);
 
     /**
      * 删除单个【表字段】
      */
     @ApiOperation(value="删除单个【表字段】")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "id", dataType = "String", value = "【表字段】id", paramType = "path"),
+        @ApiImplicitParam(name = "id", dataType = "int", value = "【表字段】id", paramType = "path"),
     })
-    ResponseEntity<Integer> delete(String id);
+    ResponseEntity<Integer> delete(Integer id);
 
     /**
      * 批量删除【表字段】
      */
     @ApiOperation(value = "批量删除【表字段】")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "id", dataType = "String", value = "id数组", paramType = "body"),
+        @ApiImplicitParam(name = "id", dataType = "int", value = "id数组", paramType = "body"),
     })
-    ResponseEntity<Integer> deleteBatch(String[] id);
+    ResponseEntity<Integer> deleteBatch(Integer[] id);
 
 }
 

@@ -57,7 +57,7 @@ public class TablefieldInfoService {
      */
     @Transactional(rollbackFor = RuntimeException.class)
     public TablefieldInfoPO update(TablefieldInfoUpdateDTO tablefieldInfoUpdateDTO) {
-        String id = tablefieldInfoUpdateDTO.getId();
+        Integer id = tablefieldInfoUpdateDTO.getId();
         TablefieldInfoPO tablefieldInfo = this.getTablefieldInfo(id, true);
         TablefieldInfoMapper.INSTANCE.setUpdateDTO(tablefieldInfo, tablefieldInfoUpdateDTO);
         if(tablefieldInfo.getTableId() != null){
@@ -85,7 +85,7 @@ public class TablefieldInfoService {
      * @param force 是否强制获取
      * @return
      */
-    public TablefieldInfoPO getTablefieldInfo(String id, boolean force){
+    public TablefieldInfoPO getTablefieldInfo(Integer id, boolean force){
         TablefieldInfoPO tablefieldInfo = tablefieldInfoDAO.findById(id);
         if (force && tablefieldInfo == null) {
             throw new BusinessException(ErrorCode.RECORD_NOT_FIND);
@@ -100,7 +100,7 @@ public class TablefieldInfoService {
      * @param id
      * @return
      */
-    public TablefieldInfoShowVO show(String id) {
+    public TablefieldInfoShowVO show(Integer id) {
         TablefieldInfoPO tablefieldInfo = this.getTablefieldInfo(id, true);
         TablefieldInfoShowVO showVO = TablefieldInfoMapper.INSTANCE.toShowVO(tablefieldInfo);
         if(tablefieldInfo.getTableId()!=null){
@@ -117,9 +117,9 @@ public class TablefieldInfoService {
      * @return
      */
     @Transactional(rollbackFor = RuntimeException.class)
-    public int delete(String... ids) {
+    public int delete(Integer... ids) {
         int count = 0;
-        for (String id : ids) {
+        for (Integer id : ids) {
             count += tablefieldInfoDAO.delete(id);
         }
         return count;

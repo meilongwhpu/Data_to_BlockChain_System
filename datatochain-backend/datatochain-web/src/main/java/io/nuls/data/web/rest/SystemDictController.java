@@ -62,21 +62,21 @@ public class SystemDictController extends AbstractController implements SystemDi
 
     @Override
     @GetMapping(value = "/{id}")
-    public ResponseEntity<SystemDictShowVO> show(@PathVariable String id) {
+    public ResponseEntity<SystemDictShowVO> show(@PathVariable Integer id) {
         SystemDictShowVO systemDictShowVO = systemDictService.show(id);
         return ResponseEntity.ok(systemDictShowVO);
     }
 
     @Override
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Integer> delete(@PathVariable String id) {
+    public ResponseEntity<Integer> delete(@PathVariable Integer id) {
         int count = systemDictService.delete(id);
         return ResponseEntity.ok(count);
     }
 
     @Override
     @DeleteMapping
-    public ResponseEntity<Integer> deleteBatch(@RequestBody String[] id) {
+    public ResponseEntity<Integer> deleteBatch(@RequestBody Integer[] id) {
         if(ArrayUtils.isEmpty(id)){
             throw new BusinessException(ErrorCode.PARAM_IS_NULL);
         }

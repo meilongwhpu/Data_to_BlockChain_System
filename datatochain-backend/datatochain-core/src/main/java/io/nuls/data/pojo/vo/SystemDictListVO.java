@@ -16,7 +16,7 @@ import static io.nuls.data.pojo.example.SystemDictExample.*;
 public class SystemDictListVO extends AbstractVO {
 
     @ApiModelProperty(notes = N_ID, example = E_ID)
-    private String id;
+    private Integer id;
 
     @ApiModelProperty(notes = N_DICT_KEY, example = E_DICT_KEY)
     private String dictKey;
@@ -28,11 +28,11 @@ public class SystemDictListVO extends AbstractVO {
     private String dictDesc;
 
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

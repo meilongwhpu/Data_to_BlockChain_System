@@ -62,21 +62,21 @@ public class TablefieldInfoController extends AbstractController implements Tabl
 
     @Override
     @GetMapping(value = "/{id}")
-    public ResponseEntity<TablefieldInfoShowVO> show(@PathVariable String id) {
+    public ResponseEntity<TablefieldInfoShowVO> show(@PathVariable Integer id) {
         TablefieldInfoShowVO tablefieldInfoShowVO = tablefieldInfoService.show(id);
         return ResponseEntity.ok(tablefieldInfoShowVO);
     }
 
     @Override
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Integer> delete(@PathVariable String id) {
+    public ResponseEntity<Integer> delete(@PathVariable Integer id) {
         int count = tablefieldInfoService.delete(id);
         return ResponseEntity.ok(count);
     }
 
     @Override
     @DeleteMapping
-    public ResponseEntity<Integer> deleteBatch(@RequestBody String[] id) {
+    public ResponseEntity<Integer> deleteBatch(@RequestBody Integer[] id) {
         if(ArrayUtils.isEmpty(id)){
             throw new BusinessException(ErrorCode.PARAM_IS_NULL);
         }

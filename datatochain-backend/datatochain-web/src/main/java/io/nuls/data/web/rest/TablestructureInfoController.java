@@ -65,28 +65,28 @@ public class TablestructureInfoController extends AbstractController implements 
 
     @Override
     @GetMapping(value = "/options")
-    public ResponseEntity<List<OptionVO<String, String>>> findOptions(OptionQO<String, String> qo) {
-        List<OptionVO<String, String>> options = tablestructureInfoService.findOptions(qo);
+    public ResponseEntity<List<OptionVO<Integer, String>>> findOptions(OptionQO<Integer, String> qo) {
+        List<OptionVO<Integer, String>> options = tablestructureInfoService.findOptions(qo);
         return ResponseEntity.ok(options);
     }
 
     @Override
     @GetMapping(value = "/{id}")
-    public ResponseEntity<TablestructureInfoShowVO> show(@PathVariable String id) {
+    public ResponseEntity<TablestructureInfoShowVO> show(@PathVariable Integer id) {
         TablestructureInfoShowVO tablestructureInfoShowVO = tablestructureInfoService.show(id);
         return ResponseEntity.ok(tablestructureInfoShowVO);
     }
 
     @Override
     @DeleteMapping(value = "/{id}")
-    public ResponseEntity<Integer> delete(@PathVariable String id) {
+    public ResponseEntity<Integer> delete(@PathVariable Integer id) {
         int count = tablestructureInfoService.delete(id);
         return ResponseEntity.ok(count);
     }
 
     @Override
     @DeleteMapping
-    public ResponseEntity<Integer> deleteBatch(@RequestBody String[] id) {
+    public ResponseEntity<Integer> deleteBatch(@RequestBody Integer[] id) {
         if(ArrayUtils.isEmpty(id)){
             throw new BusinessException(ErrorCode.PARAM_IS_NULL);
         }

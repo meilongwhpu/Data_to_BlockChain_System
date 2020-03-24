@@ -27,8 +27,7 @@ public class TablespaceInfoUpdateDTO extends AbstractDTO {
 
     @ApiModelProperty(notes = N_ID,example = E_ID,required = true)
     @NotNull
-    @Length(max = 50)
-    private String id;
+    private Integer id;
 
     @ApiModelProperty(notes = N_TABLESPACE_NAME,example = E_TABLESPACE_NAME,required = true)
     @NotNull
@@ -64,11 +63,11 @@ public class TablespaceInfoUpdateDTO extends AbstractDTO {
     private String creatorId;
 
 
-    public String getId() {
+    public Integer getId() {
         return this.id;
     }
 
-    public void setId(String id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

@@ -51,27 +51,27 @@ public interface SystemDictAPI {
      */
     @ApiOperation(value="查看【系统参数】详情")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "id", dataType = "String", value = "【系统参数】id", paramType = "path"),
+        @ApiImplicitParam(name = "id", dataType = "int", value = "【系统参数】id", paramType = "path"),
     })
-    ResponseEntity<SystemDictShowVO> show(String id);
+    ResponseEntity<SystemDictShowVO> show(Integer id);
 
     /**
      * 删除单个【系统参数】
      */
     @ApiOperation(value="删除单个【系统参数】")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "id", dataType = "String", value = "【系统参数】id", paramType = "path"),
+        @ApiImplicitParam(name = "id", dataType = "int", value = "【系统参数】id", paramType = "path"),
     })
-    ResponseEntity<Integer> delete(String id);
+    ResponseEntity<Integer> delete(Integer id);
 
     /**
      * 批量删除【系统参数】
      */
     @ApiOperation(value = "批量删除【系统参数】")
     @ApiImplicitParams({
-        @ApiImplicitParam(name = "id", dataType = "String", value = "id数组", paramType = "body"),
+        @ApiImplicitParam(name = "id", dataType = "int", value = "id数组", paramType = "body"),
     })
-    ResponseEntity<Integer> deleteBatch(String[] id);
+    ResponseEntity<Integer> deleteBatch(Integer[] id);
 
 }
 

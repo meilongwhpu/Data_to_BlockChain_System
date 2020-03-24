@@ -59,7 +59,7 @@ public class TablespaceInfoService {
      */
     @Transactional(rollbackFor = RuntimeException.class)
     public TablespaceInfoPO update(TablespaceInfoUpdateDTO tablespaceInfoUpdateDTO) {
-        String id = tablespaceInfoUpdateDTO.getId();
+        Integer id = tablespaceInfoUpdateDTO.getId();
         TablespaceInfoPO tablespaceInfo = this.getTablespaceInfo(id, true);
         TablespaceInfoMapper.INSTANCE.setUpdateDTO(tablespaceInfo, tablespaceInfoUpdateDTO);
         tablespaceInfoDAO.update(tablespaceInfo);
@@ -82,8 +82,8 @@ public class TablespaceInfoService {
      *
      * @return
      */
-    public List<OptionVO<String, String>> findOptions(OptionQO<String, String> qo) {
-        List<OptionVO<String, String>> options = tablespaceInfoDAO.findOptions(qo);
+    public List<OptionVO<Integer, String>> findOptions(OptionQO<Integer, String> qo) {
+        List<OptionVO<Integer, String>> options = tablespaceInfoDAO.findOptions(qo);
         return options;
     }
 
@@ -94,7 +94,7 @@ public class TablespaceInfoService {
      * @param force 是否强制获取
      * @return
      */
-    public TablespaceInfoPO getTablespaceInfo(String id, boolean force){
+    public TablespaceInfoPO getTablespaceInfo(Integer id, boolean force){
         TablespaceInfoPO tablespaceInfo = tablespaceInfoDAO.findById(id);
         if (force && tablespaceInfo == null) {
             throw new BusinessException(ErrorCode.RECORD_NOT_FIND);
@@ -109,7 +109,7 @@ public class TablespaceInfoService {
      * @param id
      * @return
      */
-    public TablespaceInfoShowVO show(String id) {
+    public TablespaceInfoShowVO show(Integer id) {
         TablespaceInfoPO tablespaceInfo = this.getTablespaceInfo(id, true);
         TablespaceInfoShowVO showVO = TablespaceInfoMapper.INSTANCE.toShowVO(tablespaceInfo);
         return showVO;
@@ -122,9 +122,9 @@ public class TablespaceInfoService {
      * @return
      */
     @Transactional(rollbackFor = RuntimeException.class)
-    public int delete(String... ids) {
+    public int delete(Integer... ids) {
         int count = 0;
-        for (String id : ids) {
+        for (Integer id : ids) {
             this.checkDeleteByTablestructureInfo(id);
             // 校验是否存在【应用】关联
             this.checkDeleteByAppInfo(id);
@@ -138,7 +138,7 @@ public class TablespaceInfoService {
      *
      * @param id
      */
-    private void checkDeleteByTablestructureInfo(String id) {
+    private void checkDeleteByTablestructureInfo(Integer id) {
         int count = tablestructureInfoDAO.getCountByTablespaceId(id);
         if(count>0){
             throw new BusinessException(ErrorCode.CASCADE_DELETE_ERROR);
@@ -150,7 +150,7 @@ public class TablespaceInfoService {
      *
      * @param id
      */
-    private void checkDeleteByAppInfo(String id) {
+    private void checkDeleteByAppInfo(Integer id) {
         int count = appInfoDAO.getCountByTablespaceInfo(id);
         if(count>0){
             throw new BusinessException(ErrorCode.CASCADE_DELETE_ERROR);

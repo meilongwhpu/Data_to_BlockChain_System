@@ -49,7 +49,7 @@ public class OperateLogService {
      */
     @Transactional(rollbackFor = RuntimeException.class)
     public OperateLogPO update(OperateLogUpdateDTO operateLogUpdateDTO) {
-        String id = operateLogUpdateDTO.getId();
+        Integer id = operateLogUpdateDTO.getId();
         OperateLogPO operateLog = this.getOperateLog(id, true);
         OperateLogMapper.INSTANCE.setUpdateDTO(operateLog, operateLogUpdateDTO);
         operateLogDAO.update(operateLog);
@@ -74,7 +74,7 @@ public class OperateLogService {
      * @param force 是否强制获取
      * @return
      */
-    public OperateLogPO getOperateLog(String id, boolean force){
+    public OperateLogPO getOperateLog(Integer id, boolean force){
         OperateLogPO operateLog = operateLogDAO.findById(id);
         if (force && operateLog == null) {
             throw new BusinessException(ErrorCode.RECORD_NOT_FIND);
@@ -89,7 +89,7 @@ public class OperateLogService {
      * @param id
      * @return
      */
-    public OperateLogShowVO show(String id) {
+    public OperateLogShowVO show(Integer id) {
         OperateLogPO operateLog = this.getOperateLog(id, true);
         OperateLogShowVO showVO = OperateLogMapper.INSTANCE.toShowVO(operateLog);
         return showVO;
@@ -102,9 +102,9 @@ public class OperateLogService {
      * @return
      */
     @Transactional(rollbackFor = RuntimeException.class)
-    public int delete(String... ids) {
+    public int delete(Integer... ids) {
         int count = 0;
-        for (String id : ids) {
+        for (Integer id : ids) {
             count += operateLogDAO.delete(id);
         }
         return count;
