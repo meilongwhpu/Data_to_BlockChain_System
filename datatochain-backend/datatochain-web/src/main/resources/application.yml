@@ -11,7 +11,20 @@ spring:
   http:
     encoding:
       force: true
-
+  boot:
+    admin:
+      client:
+        url: http://10.10.22.194:7000
+        instance:
+          prefer-ip: true
+          name: datatochain
+        username: admin
+        password: 123456
+#  security:
+#    user:
+#      name: admin
+#      password: password
+#      roles: ADMIN
 swagger:
   base-package: io.nuls.data
 
@@ -29,7 +42,13 @@ management:
       exposure:
         #默认值访问health,info端点  用*可以包含全部端点
         include: "*"
-      #修改访问路径 2.0之前默认是/; 2.0默认是/actuator可以通过这个属性值修改
-      base-path: /actuator
+
+info:
+  version: @project.version@
+  groupId: @project.groupId@
+  artifactId: @project.artifactId@
+
+
+
 
 

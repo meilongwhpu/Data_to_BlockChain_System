@@ -28,6 +28,20 @@
             <artifactId>spring-boot-starter-actuator</artifactId>
         </dependency>
 
+        <!--监控-客户端-->
+        <dependency>
+            <groupId>de.codecentric</groupId>
+            <artifactId>spring-boot-admin-starter-client</artifactId>
+            <version>2.2.1</version>
+        </dependency>
+
+        <!--权限控制
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-security</artifactId>
+        </dependency>
+        -->
+
         <!-- spring-boot 单元测试-->
         <dependency>
             <groupId>org.springframework.boot</groupId>
