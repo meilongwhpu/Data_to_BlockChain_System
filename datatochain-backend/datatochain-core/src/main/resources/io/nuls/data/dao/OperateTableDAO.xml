@@ -35,6 +35,9 @@
         <if test="!fields.fieldIsAutoIncrement and fields.fieldIsNull and fields.fieldDefaultValue != 'NULL'">
             DEFAULT #{fields.fieldDefaultValue}
         </if>
+        <if test="fields.fieldDesc">
+            COMMENT #{fields.fieldDesc}
+        </if>
     </sql>
 
     <!-- 创建表的 -->
@@ -50,6 +53,7 @@
                 <if test="fields.fieldIsUnique">
                     ,UNIQUE KEY (`${fields.fieldName}`)
                 </if>
+
             </foreach>
             );
         </foreach>

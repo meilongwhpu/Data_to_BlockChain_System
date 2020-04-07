@@ -52,7 +52,7 @@
         #{createTime,jdbcType=TIMESTAMP},
         #{updateTime,jdbcType=TIMESTAMP},
         #{creatorId,jdbcType=VARCHAR},
-        #{isCreate,jdbcType=BOOLEAN}
+        #{isCreate,jdbcType=INTEGER}
         )
     </insert>
 
@@ -65,7 +65,7 @@
             create_time=#{createTime,jdbcType=TIMESTAMP},
             update_time=#{updateTime,jdbcType=TIMESTAMP},
             creator_id=#{creatorId,jdbcType=VARCHAR},
-            is_create=#{isCreate,jdbcType=BOOLEAN}
+            is_create=#{isCreate,jdbcType=INTEGER}
         where id=#{id,jdbcType=INTEGER}
     </update>
 
@@ -142,5 +142,9 @@
 
     <!-- 以上是自动生成的代码，尽量不要手动修改，新的sql请写在本行注释以下区域 -->
 
-
+    <update id="updateIsCreate" parameterType="TablestructureInfoPO">
+        update nl_tablestructure_info set
+            is_create=#{isCreate,jdbcType=INTEGER}
+        where id=#{tableId,jdbcType=INTEGER}
+    </update>
 </mapper>

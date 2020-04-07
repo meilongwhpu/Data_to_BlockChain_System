@@ -28,6 +28,7 @@ public class TablespaceInfoHelper {
         dto.setEncryptionMode(SafeUtil.getInteger(E_ENCRYPTION_MODE));
         dto.setToChain(SafeUtil.getInteger(E_TO_CHAIN));
         dto.setCreateTime(DateUtil.parseDate(E_CREATE_TIME));
+        dto.setUpdateTime(DateUtil.parseDate(E_UPDATE_TIME));
         dto.setCreatorId(E_CREATOR_ID);
         return dto;
     }
@@ -46,6 +47,7 @@ public class TablespaceInfoHelper {
         dto.setEncryptionMode(tablespaceInfo.getEncryptionMode());
         dto.setToChain(tablespaceInfo.getToChain());
         dto.setCreateTime(tablespaceInfo.getCreateTime());
+        dto.setUpdateTime(tablespaceInfo.getUpdateTime());
         dto.setCreatorId(tablespaceInfo.getCreatorId());
         return dto;
     }

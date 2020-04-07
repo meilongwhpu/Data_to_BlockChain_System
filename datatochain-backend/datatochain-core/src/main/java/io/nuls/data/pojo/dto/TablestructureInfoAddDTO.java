@@ -40,7 +40,7 @@ public class TablestructureInfoAddDTO extends AbstractDTO {
 
     @ApiModelProperty(notes = N_IS_CREATE, example = E_IS_CREATE, allowableValues = IsCreate.VALUES_STR)
     @Const(constClass = IsCreate.class)
-    private Boolean isCreate;
+    private Integer isCreate;
 
 
     public Integer getTablespaceId() {
@@ -75,11 +75,11 @@ public class TablestructureInfoAddDTO extends AbstractDTO {
         this.creatorId = creatorId;
     }
 
-    public Boolean getIsCreate() {
+    public Integer getIsCreate() {
         return this.isCreate;
     }
 
-    public void setIsCreate(Boolean isCreate) {
+    public void setIsCreate(Integer isCreate) {
         this.isCreate = isCreate;
     }
 

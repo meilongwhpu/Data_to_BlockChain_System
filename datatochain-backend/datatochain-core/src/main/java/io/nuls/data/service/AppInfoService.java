@@ -47,6 +47,7 @@ public class AppInfoService {
     public AppInfoPO save(AppInfoAddDTO appInfoDTO) {
         AppInfoPO appInfo = AppInfoMapper.INSTANCE.fromAddDTO(appInfoDTO);
         appInfo.setAppName("");
+        appInfo.setCreatorId("");
         appInfoDAO.save(appInfo);
         return appInfo;
     }

@@ -5,6 +5,8 @@ import io.nuls.data.pojo.po.TablefieldInfoPO;
 import org.apache.ibatis.annotations.Mapper;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * 【表字段】数据库操作
  *
@@ -16,6 +18,8 @@ import org.springframework.stereotype.Repository;
 public interface TablefieldInfoDAO extends DAO<TablefieldInfoPO> {
 
     int getCountByTableId(Integer tableId);
+
+    List<TablefieldInfoPO> findByTableId(Integer tableId);
 
 
 }

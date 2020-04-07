@@ -41,7 +41,7 @@ public class TablefieldInfoShowVO extends AbstractVO {
     private Integer fieldDecimalLength;
 
     @ApiModelProperty(notes = N_FIELD_IS_KEY,example = E_FIELD_IS_KEY, allowableValues = IsKey.VALUES_STR)
-    private Boolean fieldIsKey;
+    private Integer fieldIsKey;
 
     @ApiModelProperty(notes = N_ALLOW_NULL,example = E_ALLOW_NULL, allowableValues = AllowNull.VALUES_STR)
     private Integer allowNull;
@@ -112,11 +112,11 @@ public class TablefieldInfoShowVO extends AbstractVO {
         this.fieldDecimalLength = fieldDecimalLength;
     }
 
-    public Boolean getFieldIsKey() {
+    public Integer getFieldIsKey() {
         return this.fieldIsKey;
     }
 
-    public void setFieldIsKey(Boolean fieldIsKey) {
+    public void setFieldIsKey(Integer fieldIsKey) {
         this.fieldIsKey = fieldIsKey;
     }
 

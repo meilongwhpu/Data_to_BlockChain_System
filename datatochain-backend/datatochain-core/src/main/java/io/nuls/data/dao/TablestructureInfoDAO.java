@@ -5,6 +5,7 @@ import io.nuls.common.pojo.qo.OptionQO;
 import io.nuls.common.pojo.vo.OptionVO;
 import io.nuls.data.pojo.po.TablestructureInfoPO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -23,6 +24,7 @@ public interface TablestructureInfoDAO extends DAO<TablestructureInfoPO> {
 
     int getCountByTablespaceId(Integer tablespaceId);
 
+    int updateIsCreate(@Param("isCreate") Integer isCreate,@Param("tableId") Integer id);
 
 }
 

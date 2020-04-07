@@ -39,8 +39,9 @@
       </el-form-item>
       <el-form-item label="是否主键" prop="fieldIsKey">
         <el-radio-group v-model="form.fieldIsKey">
-          <el-radio :label="true">是</el-radio>
-          <el-radio :label="false">否</el-radio>
+          <el-radio v-for="item in enums.isKey"
+                    :key="item.value"
+                    :label="item.value">{{ item.label }}</el-radio>
         </el-radio-group>
       </el-form-item>
       <el-form-item label="是否允许为空" prop="allowNull">
@@ -97,6 +98,7 @@ export default {
     return {
       enums: {
         fieldType: enums.getFieldType(),
+        isKey: enums.getIsKey(),
         allowNull: enums.getAllowNull()
       },
       options: {

@@ -25,7 +25,7 @@ public class TablestructureInfoHelper {
         dto.setTableName(E_TABLE_NAME);
         dto.setTableDesc(E_TABLE_DESC);
         dto.setCreatorId(E_CREATOR_ID);
-        dto.setIsCreate(SafeUtil.getBoolean(E_IS_CREATE));
+        dto.setIsCreate(SafeUtil.getInteger(E_IS_CREATE));
         return dto;
     }
 

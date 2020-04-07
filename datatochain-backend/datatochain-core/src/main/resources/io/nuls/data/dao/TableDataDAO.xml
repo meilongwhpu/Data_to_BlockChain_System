@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.nuls.data.dao.TableDataDAO">
+
+    <sql id="orderCondition">
+        order by
+            tn.id desc
+    </sql>
+
+    <select id="findListByQuery" resultType="java.util.HashMap"  parameterType="TableDataQO">
+        select
+        <foreach collection="columnsArray" item="item" index="index" open=" " separator=", " close=" " >
+            ${item}
+        </foreach>
+        from   ${tableName}   tn
+        limit ${startIndex},${pageSize}
+    </select>
+
+
+    <select id="queryTableDataByCondition" resultType="java.util.HashMap"  parameterType="java.util.HashMap">
+        select
+        <foreach collection="columnsArray" item="item" index="index" open=" " separator=", " close=" " >
+            ${item}
+        </foreach>
+        from   #{tableName}   tn
+        <where>
+            <foreach collection="conditionMap" index="key" item="field" separator="and ">
+                tn.`${key}` = `${field}`
+            </foreach>
+        </where>
+    </select>
+
+    <select id="insertData" parameterType="java.util.Map">
+        insert into
+        <foreach collection="tableDataMap" index="key" item="value"  open="( "  separator=","  close=") " >
+             `${key}`
+        </foreach>
+        values
+        <foreach collection="tableDataMap" index="key" item="data"  open="( "  separator=","  close="); " >
+            #{data.value,jdbcType=data.type}
+        </foreach>
+    </select>
+
+</mapper>

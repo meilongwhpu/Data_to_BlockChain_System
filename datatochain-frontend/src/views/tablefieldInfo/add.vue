@@ -32,7 +32,17 @@
         </el-select>
       </el-form-item>
       <el-form-item label="字段长度" prop="fieldLength">
-        <el-input v-model="form.fieldLength"/>
+        <el-input-number v-model="form.fieldLength" style="width:100%;" controls-position="right"></el-input-number>
+      </el-form-item>
+      <el-form-item label="类型小数长度" prop="fieldDecimalLength">
+        <el-input-number v-model="form.fieldDecimalLength" style="width:100%;" controls-position="right"></el-input-number>
+      </el-form-item>
+      <el-form-item label="是否主键" prop="fieldIsKey">
+        <el-radio-group v-model="form.fieldIsKey">
+          <el-radio v-for="item in enums.isKey"
+                    :key="item.value"
+                    :label="item.value">{{ item.label }}</el-radio>
+        </el-radio-group>
       </el-form-item>
       <el-form-item label="是否允许为空" prop="allowNull">
         <el-radio-group v-model="form.allowNull">
@@ -40,6 +50,9 @@
                     :key="item.value"
                     :label="item.value">{{ item.label }}</el-radio>
         </el-radio-group>
+      </el-form-item>
+      <el-form-item label="默认值" prop="fieldDefaultValue">
+        <el-input v-model="form.fieldDefaultValue"/>
       </el-form-item>
       <el-form-item label="创建者ID" prop="creatorId">
         <el-input v-model="form.creatorId"/>
@@ -69,7 +82,10 @@ function initFormBean() {
     fieldDesc: null,
     fieldType: null,
     fieldLength: null,
+    fieldDecimalLength: null,
+    fieldIsKey: null,
     allowNull: null,
+    fieldDefaultValue: null,
     creatorId: null
   }
   return formBean
@@ -81,6 +97,7 @@ export default {
     return {
       enums: {
         fieldType: enums.getFieldType(),
+        isKey: enums.getIsKey(),
         allowNull: enums.getAllowNull()
       },
       options: {
@@ -102,11 +119,17 @@ export default {
           { required: true, message: '请输入字段类型', trigger: 'change' }
         ],
         fieldLength: [
-          { required: true, message: '请输入字段长度', trigger: 'blur' },
-          { max: 10, message: '长度不能超过10个字符', trigger: 'blur' }
+          { required: true, message: '请输入字段长度', trigger: 'blur' }
+        ],
+        fieldDecimalLength: [
+        ],
+        fieldIsKey: [
         ],
         allowNull: [
           { required: true, message: '请输入是否允许为空', trigger: 'change' }
+        ],
+        fieldDefaultValue: [
+          { max: 50, message: '长度不能超过50个字符', trigger: 'blur' }
         ],
         creatorId: [
           { max: 50, message: '长度不能超过50个字符', trigger: 'blur' }

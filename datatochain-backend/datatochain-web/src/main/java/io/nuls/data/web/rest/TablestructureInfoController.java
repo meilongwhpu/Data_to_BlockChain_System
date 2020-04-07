@@ -13,6 +13,7 @@ import io.nuls.data.pojo.po.TablestructureInfoPO;
 import io.nuls.data.pojo.qo.TablestructureInfoQO;
 import io.nuls.data.pojo.vo.TablestructureInfoListVO;
 import io.nuls.data.pojo.vo.TablestructureInfoShowVO;
+import io.nuls.data.service.CreateTableManagerService;
 import io.nuls.data.service.TablestructureInfoService;
 import io.nuls.data.web.AbstractController;
 import io.nuls.data.web.api.TablestructureInfoAPI;
@@ -39,6 +40,9 @@ public class TablestructureInfoController extends AbstractController implements 
 
     @Autowired
     private TablestructureInfoService tablestructureInfoService;
+
+    @Autowired
+    private CreateTableManagerService createTableManagerService;
 
     @Override
     @PostMapping
@@ -92,6 +96,12 @@ public class TablestructureInfoController extends AbstractController implements 
         }
         int count = tablestructureInfoService.delete(id);
         return ResponseEntity.ok(count);
+    }
+
+    @PutMapping(value = "/createTable/{id}")
+    public ResponseEntity<Integer> createTable(@PathVariable(value = "id") Integer tableId) {
+            createTableManagerService.createMysqlTable(tableId);
+        return ResponseEntity.ok(1);
     }
 
 }

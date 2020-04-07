@@ -114,6 +114,18 @@ export const constantRoutes = [
       }
     ]
   },
+{
+  path: '/tabledataInfo',
+    component: Layout,
+  children: [
+  {
+    path: 'index',
+    name: 'TabledataInfo',
+    component: () => import('@/views/tabledata'),
+  meta: { title: '表数据管理', icon: 'table' }
+}
+]
+},
   {
     path: '/systemDict',
     component: Layout,
@@ -126,6 +138,12 @@ export const constantRoutes = [
       }
     ]
   },
+{
+  path: '/tableData',
+  name:'tableData',
+    component: () => import('@/views/tabledata/index.vue'),
+  hidden: true
+},
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
 ]

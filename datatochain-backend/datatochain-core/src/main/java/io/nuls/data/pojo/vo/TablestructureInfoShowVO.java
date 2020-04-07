@@ -42,7 +42,7 @@ public class TablestructureInfoShowVO extends AbstractVO {
     private String creatorId;
 
     @ApiModelProperty(notes = N_IS_CREATE,example = E_IS_CREATE, allowableValues = IsCreate.VALUES_STR)
-    private Boolean isCreate;
+    private Integer isCreate;
 
     @ApiModelProperty(notes = TablespaceInfoExample.N_TABLESPACE_NAME,example = TablespaceInfoExample.E_TABLESPACE_NAME)
     private String tablespaceName;
@@ -96,11 +96,11 @@ public class TablestructureInfoShowVO extends AbstractVO {
         this.creatorId = creatorId;
     }
 
-    public Boolean getIsCreate() {
+    public Integer getIsCreate() {
         return this.isCreate;
     }
 
-    public void setIsCreate(Boolean isCreate) {
+    public void setIsCreate(Integer isCreate) {
         this.isCreate = isCreate;
     }
 

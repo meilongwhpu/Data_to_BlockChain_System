@@ -16,6 +16,11 @@ public class CreateTableParamPO extends AbstractPO {
     private String	fieldName;
 
     /**
+     * 字段注释
+     */
+    private String fieldDesc;
+
+    /**
      * 字段类型
      */
     private String	fieldType;
@@ -66,6 +71,14 @@ public class CreateTableParamPO extends AbstractPO {
 
     public void setFieldName(String fieldName){
         this.fieldName = fieldName;
+    }
+
+    public String getFieldDesc() {
+        return fieldDesc;
+    }
+
+    public void setFieldDesc(String fieldDesc) {
+        this.fieldDesc = fieldDesc;
     }
 
     public String getFieldType(){

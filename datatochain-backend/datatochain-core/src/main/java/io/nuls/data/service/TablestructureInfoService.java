@@ -54,6 +54,8 @@ public class TablestructureInfoService {
             Assert.isTrue(tablespaceInfoDAO.exist(tablestructureInfo.getTablespaceId()),"表空间名称有误");
         }
         tablestructureInfo.setCreateTime(new Date());
+        tablestructureInfo.setUpdateTime(new Date());
+        tablestructureInfo.setCreatorId("");
         tablestructureInfoDAO.save(tablestructureInfo);
         return tablestructureInfo;
     }

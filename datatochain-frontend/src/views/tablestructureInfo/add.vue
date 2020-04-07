@@ -25,8 +25,9 @@
       </el-form-item>
       <el-form-item label="是否创建" prop="isCreate">
         <el-radio-group v-model="form.isCreate">
-          <el-radio :label="true">是</el-radio>
-          <el-radio :label="false">否</el-radio>
+          <el-radio v-for="item in enums.isCreate"
+                    :key="item.value"
+                    :label="item.value">{{ item.label }}</el-radio>
         </el-radio-group>
       </el-form-item>
     </el-form>
@@ -45,6 +46,7 @@
 <script>
 import tablestructureInfoApi from '@/api/tablestructureInfo'
 import tablespaceInfoApi from '@/api/tablespaceInfo'
+import enums from '@/utils/enums'
 
 function initFormBean() {
   const formBean = {
@@ -61,6 +63,9 @@ export default {
   name: 'TablestructureInfoAdd',
   data() {
     return {
+      enums: {
+        isCreate: enums.getIsCreate()
+      },
       options: {
         tablespaceInfo: []
       },

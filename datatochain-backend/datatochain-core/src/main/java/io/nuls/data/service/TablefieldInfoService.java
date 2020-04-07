@@ -18,6 +18,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.Assert;
 
+import java.util.Date;
+
 /**
  * 【表字段】增删改查服务
  *
@@ -45,6 +47,7 @@ public class TablefieldInfoService {
         if(tablefieldInfo.getTableId() != null){
             Assert.isTrue(tablestructureInfoDAO.exist(tablefieldInfo.getTableId()),"表结构名称有误");
         }
+        tablefieldInfo.setCreatorId("");
         tablefieldInfoDAO.save(tablefieldInfo);
         return tablefieldInfo;
     }

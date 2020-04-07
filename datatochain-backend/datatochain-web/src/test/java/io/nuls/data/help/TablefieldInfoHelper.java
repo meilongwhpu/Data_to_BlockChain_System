@@ -27,7 +27,7 @@ public class TablefieldInfoHelper {
         dto.setFieldType(SafeUtil.getInteger(E_FIELD_TYPE));
         dto.setFieldLength(SafeUtil.getInteger(E_FIELD_LENGTH));
         dto.setFieldDecimalLength(SafeUtil.getInteger(E_FIELD_DECIMAL_LENGTH));
-        dto.setFieldIsKey(SafeUtil.getBoolean(E_FIELD_IS_KEY));
+        dto.setFieldIsKey(SafeUtil.getInteger(E_FIELD_IS_KEY));
         dto.setAllowNull(SafeUtil.getInteger(E_ALLOW_NULL));
         dto.setFieldDefaultValue(E_FIELD_DEFAULT_VALUE);
         dto.setCreatorId(E_CREATOR_ID);

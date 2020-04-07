@@ -18,7 +18,7 @@ const appInfoApi = {
    * 分页查询【应用】
    */
   fetchList(query) {
-    return request.get(apiPath, { params: query })
+      return request.get(apiPath, { params: query })
   },
   /**
    * 查询【应用】选项列表

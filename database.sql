@@ -35,7 +35,7 @@ drop table if exists nl_system_dict;
 /*==============================================================*/
 create table nl_user_info
 (
-   id                   varchar(50) not null comment 'ID',
+   id                   int(11) not null AUTO_INCREMENT,
    user_name            varchar(100) not null comment '用户名',
    tel            varchar(50) not null comment '联系电话',
    password              varchar(50) not null comment '密码',
@@ -54,7 +54,7 @@ alter table nl_user_info comment '用户信息表';
 /*==============================================================*/
 create table nl_comp_base_info
 (
-   id                   varchar(50) not null comment 'ID',
+   id                   int(11) not null AUTO_INCREMENT,
    user_id              varchar(50) not null comment '用户ID',
    comp_name            varchar(100) not null comment '公司名称',
    comp_address         varchar(300) not null comment '公司地址',
@@ -72,7 +72,7 @@ alter table nl_comp_base_info comment '企业基本信息表';
 /*==============================================================*/
 create table nl_user_base_info
 (
-   id                   varchar(50) not null comment 'ID',
+   id                   int(11) not null AUTO_INCREMENT,
    user_id              varchar(50) not null comment '用户ID',
    real_name            varchar(100) not null comment '姓名',
    mail                 varchar(50) null comment '邮箱地址',
@@ -87,7 +87,7 @@ alter table nl_user_base_info comment '个人基本信息表';
 /*==============================================================*/
 create table nl_assets_info
 (
-   id                   varchar(50) not null comment 'id',
+   id                   int(11) not null AUTO_INCREMENT,
    assets_id            varchar(50) not null comment '个人资产ID',
    account_no           varchar(50) not null comment '资产账户',
    assets_type          varchar(20) not null comment '资产类型',
@@ -95,7 +95,7 @@ create table nl_assets_info
    income_sum           decimal(30,8) not null comment '充值总金额',
    outcome_sum          decimal(30,8) not null comment '消费总金额',
    status                TINYINT not null default 1 comment '资产账户状态',
-   update_time           datetime not null comment '更新时间',
+   update_time           date not null comment '更新时间',
    remark                varchar(200) not null comment '备注',
    primary key (id)
 );
@@ -107,11 +107,11 @@ alter table nl_assets_info comment '资产信息表';
 /*==============================================================*/
 create table nl_assets_flow_info
 (
-   id                   varchar(50) not null comment 'ID',
+   id                   int(11) not null AUTO_INCREMENT,
    assets_id            varchar(50) not null comment '个人资产ID',
    type                 varchar(20) not null comment '明细类型：in：充值；out：消费',
    amount              decimal(30,8) not null comment '明细金额',
-   create_time       datetime not null  comment '时间',
+   create_time       date not null  comment '时间',
    remark            varchar(200) null comment '备注',
    primary key (id)
 );
@@ -123,7 +123,7 @@ alter table nl_assets_flow_info comment '资产明细流水表';
 /*==============================================================*/
 create table nl_operate_log
 (
-   id                   varchar(50) not null comment 'id',
+   id                   int(11) not null AUTO_INCREMENT,
    user_id              varchar(50) not null comment '用户ID',
    oper_time            datetime not null comment '操作时间',
    oper_subject          varchar(20) not null comment '操作科目',
@@ -140,13 +140,12 @@ alter table nl_operate_log comment '操作日志';
 /*==============================================================*/
 create table nl_app_info
 (
-   id                   varchar(50) not null comment 'id',
-   app_id               varchar(50) not null comment '应用ID',
+   id                   int(11) not null AUTO_INCREMENT,
    app_name            varchar(50) not null comment '应用名称',
    app_desc             varchar(50) comment '应用介绍',
    app_key               varchar(50) not null comment '应用key，访问应用下面的数据时使用',
-   create_time            datetime not null comment '创建时间',
-   update_time           datetime not null comment '更新时间',
+   create_time            date not null comment '创建时间',
+   update_time           date not null comment '更新时间',
    creator_id           varchar(50) not null comment '用户ID',
    primary key (id)
 );
@@ -158,10 +157,10 @@ alter table nl_app_info comment '应用信息表';
 /*==============================================================*/
 create table nl_app_relation_tablespace_info 
 (
-   id                   varchar(50) not null comment 'id',
-   app_id               varchar(50) not null comment '应用ID',
+   id                   int(11) not null AUTO_INCREMENT,
+   app_id               int(11) not null comment '应用ID',
    tablespace_id         varchar(50) not null comment '表空间ID',
-   relation_time         datetime not null comment '关联时间',
+   relation_time         date not null comment '关联时间',
    del_relation          TINYINT not null default 0 comment '解除关联：0:-未解除;1-解除',
    creator_id            varchar(50) not null comment '用户ID',
    primary key (id)
@@ -174,14 +173,14 @@ alter table nl_app_relation_tablespace_info comment '应用关联表空间信息
 /*==============================================================*/
 create table nl_tablespace_info
 (
-   id                   varchar(50) not null comment 'id',
+   id                   int(11) not null AUTO_INCREMENT,
    tablespace_name      varchar(50) not null comment '表空间名称',
    tablespace_desc      varchar(50) comment '表空间描述',
    code_mode             varchar(10) not null comment '编码格式:ASCII,ISO-8859-1,GB2312,GBK,GB18030,UTF-16,UTF-8',
    encryption_mode       varchar(10) not null comment '加密模式：NO,BASE64, MD5, DES,AES,HMAC,SHA,RSA,PBE',
    to_chain           varchar(10) not null  comment '上链位置：MAIN-NET,TEST-NET',
-   create_time         datetime not null comment '创建时间',
-   update_time         datetime not null comment '更新时间',
+   create_time         date not null comment '创建时间',
+   update_time         date not null comment '更新时间',
    creator_id          varchar(50) not null comment '用户ID',
    primary key (id)
 );
@@ -193,12 +192,12 @@ alter table nl_tablespace_info comment '表空间信息表';
 /*==============================================================*/
 create table nl_tablestructure_info
 (
-   id                   varchar(50) not null comment 'id',
-   tablespace_id          varchar(50) not null comment '表空间ID',
+   id                   int(11) not null AUTO_INCREMENT,
+   tablespace_id        int(11) not null comment '表空间ID',
    table_name            varchar(50)  not null comment '表名称',
    table_desc              varchar(50) comment '表描述',
-   create_time         datetime not null comment '创建时间',
-   update_time         datetime not null comment '更新时间',
+   create_time         date not null comment '创建时间',
+   update_time         date not null comment '更新时间',
    creator_id          varchar(50) not null comment '用户ID',
    is_create           TINYINT not null default 0 comment '是否生成表结构：0:-否；1-是',
    primary key (id)
@@ -211,11 +210,11 @@ alter table nl_tablestructure_info comment '表结构信息表';
 /*==============================================================*/
 create table nl_tablefield_info
 (
-   id                  varchar(50) not null comment 'id',
-   table_id          varchar(50)  not null comment '表结构ID',
+   id                   int(11) not null AUTO_INCREMENT,
+   table_id             int(11)  not null comment '表结构ID',
    field_name            varchar(50)  not null comment '字段名称',
    field_desc             varchar(50)  not null comment '字段名称',
-   field_type             varchar(10)  not null comment '字段类型:TINYINT,FLOAT,DECIMAL,DATETIME,TIMESTAMP,CHAR,VARCHAR,BLOB,TEXT',
+   field_type             varchar(10)  not null comment '字段类型:TINYINT,FLOAT,DECIMAL,date,TIMESTAMP,CHAR,VARCHAR,BLOB,TEXT',
    field_length            TINYINT not null default 0 comment '字段长度',
    field_is_key            TINYINT not null default 0 comment '是否为主键：0:-否；1-是', 
    field_decimal_length    TINYINT not null default 0 comment '类型小数长度',
@@ -232,10 +231,10 @@ alter table nl_tablefield_info comment '表字段信息表';
 /*==============================================================*/
 create table nl_system_dict
 (
-   id                   varchar(50) not null comment 'id',
+   id                   int(11) not null AUTO_INCREMENT,
    dict_key              varchar(100) not null comment '参数key值',
    dict_value          varchar(100) not null comment '参数值',
-   field_desc           varchar(50) null comment '参数描述',
+   dict_desc           varchar(50) null comment '参数描述',
    primary key (id)
 );
 

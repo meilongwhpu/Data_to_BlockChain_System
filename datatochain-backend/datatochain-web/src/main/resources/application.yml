@@ -15,4 +15,11 @@ spring:
 swagger:
     base-package: io.nuls.data
 
+logging:
+    level:
+        io.nuls.data.dao: debug
+mybatis:
+configuration:
+log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
 

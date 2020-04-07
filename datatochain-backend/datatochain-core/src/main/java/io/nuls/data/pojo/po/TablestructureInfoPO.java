@@ -51,7 +51,7 @@ public class TablestructureInfoPO extends AbstractPO {
      * 是否创建表结构
      * @see io.nuls.data.constant.IsCreate
      */
-    private Boolean isCreate;
+    private Integer isCreate;
 
     public Integer getId() {
         return this.id;
@@ -109,11 +109,11 @@ public class TablestructureInfoPO extends AbstractPO {
         this.creatorId = creatorId;
     }
 
-    public Boolean getIsCreate() {
+    public Integer getIsCreate() {
         return this.isCreate;
     }
 
-    public void setIsCreate(Boolean isCreate) {
+    public void setIsCreate(Integer isCreate) {
         this.isCreate = isCreate;
     }
 

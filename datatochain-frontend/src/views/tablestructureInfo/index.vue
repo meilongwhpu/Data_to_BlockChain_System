@@ -86,6 +86,10 @@
                      @click="handleUpdate(row)" class="table-inner-button">编辑</el-button>
           <el-button type="danger" size="mini"
                      @click="handleDeleteSingle(row)" class="table-inner-button">删除</el-button>
+          <el-button type="success" size="mini"
+                     @click="handleTablestructureInfoAdd(row)" class="table-inner-button" :disabled="row.isCreate==1?true:false">创建表结构</el-button>
+          <el-button type="success" size="mini"
+                     @click="handleTableDataShow(row)" class="table-inner-button">查看表数据</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -97,6 +101,7 @@
     <tablestructureInfo-edit ref="tablestructureInfoEdit" @updated="doQueryList({})"/>
     <!-- 查看表单 -->
     <tablestructureInfo-show ref="tablestructureInfoShow"/>
+
   </div>
 </template>
 
@@ -107,6 +112,7 @@ import tablestructureInfoShow from './show'
 import tablestructureInfoApi from '@/api/tablestructureInfo'
 import enums from '@/utils/enums'
 import Pagination from '@/components/Pagination'
+import tabledataShow from './tabledatashow'
 
 export default {
   name: 'TablestructureInfoTable',
@@ -114,7 +120,8 @@ export default {
     Pagination,
     tablestructureInfoAdd,
     tablestructureInfoEdit,
-    tablestructureInfoShow
+    tablestructureInfoShow,
+    tabledataShow
   },
   filters: {
     findEnumLabel: enums.findEnumLabel
@@ -181,6 +188,29 @@ export default {
           return this.doQueryList({ page: 1 })
         })
     },
+     /**
+      * 创建表结构
+      */
+    handleTablestructureInfoAdd(row){
+      return this.$common.confirm('是否确认创建')
+        .then(() => tablestructureInfoApi.createTable(row.id))
+        .then(() => {
+          this.$common.showMsg('success', '创建成功')
+          return this.doQueryList({ page: 1 })
+        })
+    },
+     /**
+      * 查询表数据
+      */
+   handleTableDataShow(row){
+          let newQuery = {tableId: row.id};
+          console.log(newQuery);
+          this.$router.push({
+            name: 'tableData',
+            query: newQuery
+          })
+     // this.$refs.tabledataShow.showTableData(row.id);
+    },
     /**
      * 批量删除记录
      */
@@ -206,7 +236,7 @@ export default {
      * 打开查看表单
      */
     handleShow(row) {
-      this.$refs.tablestructureInfoShow.handleShow(row.id)
+       this.$refs.tablestructureInfoShow.handleShow(row.id)
     },
     /**
      * 打开编辑表单

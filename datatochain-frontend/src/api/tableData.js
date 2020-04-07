@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-const apiPath = '/tablestructureInfo'
+const apiPath = '/tableData'
 const tablestructureInfoApi = {
   /**
    * 新增【表结构】
@@ -19,6 +19,14 @@ const tablestructureInfoApi = {
    */
   fetchList(query) {
     return request.get(apiPath, { params: query })
+  },
+
+  fetchTableHeader(id){
+    return request.get(`${apiPath}/getTableHeader/${id}`)
+  },
+  addTableValue(data){
+    console.log(data);
+    return request.post(`${apiPath}/save`, data)
   },
   /**
    * 查询【表结构】选项列表

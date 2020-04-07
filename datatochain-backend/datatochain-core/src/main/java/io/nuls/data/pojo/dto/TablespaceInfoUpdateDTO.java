@@ -55,8 +55,12 @@ public class TablespaceInfoUpdateDTO extends AbstractDTO {
 
     @ApiModelProperty(notes = N_CREATE_TIME,example = E_CREATE_TIME,required = true)
     @NotNull
-    @JsonFormat(pattern=JsonFieldConst.DEFAULT_DATETIME_FORMAT,timezone="GMT+8")
+    @JsonFormat(pattern=JsonFieldConst.DEFAULT_DATE_FORMAT,timezone="GMT+8")
     private Date createTime;
+
+    @ApiModelProperty(notes = N_UPDATE_TIME,example = E_UPDATE_TIME)
+    @JsonFormat(pattern=JsonFieldConst.DEFAULT_DATE_FORMAT,timezone="GMT+8")
+    private Date updateTime;
 
     @ApiModelProperty(notes = N_CREATOR_ID,example = E_CREATOR_ID)
     @Length(max = 50)
@@ -117,6 +121,14 @@ public class TablespaceInfoUpdateDTO extends AbstractDTO {
 
     public void setCreateTime(Date createTime) {
         this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return this.updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     public String getCreatorId() {

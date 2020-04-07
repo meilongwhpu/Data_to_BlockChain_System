@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -47,6 +48,8 @@ public class TablespaceInfoService {
     @Transactional(rollbackFor = RuntimeException.class)
     public TablespaceInfoPO save(TablespaceInfoAddDTO tablespaceInfoDTO) {
         TablespaceInfoPO tablespaceInfo = TablespaceInfoMapper.INSTANCE.fromAddDTO(tablespaceInfoDTO);
+        tablespaceInfo.setUpdateTime(new Date());
+        tablespaceInfo.setCreatorId("");
         tablespaceInfoDAO.save(tablespaceInfo);
         return tablespaceInfo;
     }

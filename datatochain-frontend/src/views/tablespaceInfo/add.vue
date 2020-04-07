@@ -43,7 +43,10 @@
         </el-select>
       </el-form-item>
       <el-form-item label="创建时间" prop="createTime">
-        <el-date-picker v-model="form.createTime" type="datetime" placeholder="选择日期时间"></el-date-picker>
+        <el-date-picker v-model="form.createTime" type="date" placeholder="选择日期时间"></el-date-picker>
+      </el-form-item>
+      <el-form-item label="更新时间" prop="updateTime">
+        <el-date-picker v-model="form.updateTime" type="date" placeholder="选择日期时间"></el-date-picker>
       </el-form-item>
       <el-form-item label="创建者ID" prop="creatorId">
         <el-input v-model="form.creatorId"/>
@@ -73,6 +76,7 @@ function initFormBean() {
     encryptionMode: null,
     toChain: null,
     createTime: null,
+    updateTime: null,
     creatorId: null
   }
   return formBean
@@ -108,6 +112,8 @@ export default {
         ],
         createTime: [
           { required: true, message: '请输入创建时间', trigger: 'change' }
+        ],
+        updateTime: [
         ],
         creatorId: [
           { max: 50, message: '长度不能超过50个字符', trigger: 'blur' }

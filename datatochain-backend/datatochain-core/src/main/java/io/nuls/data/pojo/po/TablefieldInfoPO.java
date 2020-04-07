@@ -51,7 +51,7 @@ public class TablefieldInfoPO extends AbstractPO {
      * 是否为主键
      * @see io.nuls.data.constant.IsKey
      */
-    private Boolean fieldIsKey;
+    private Integer fieldIsKey;
 
     /**
      * 是否允许为空
@@ -125,11 +125,11 @@ public class TablefieldInfoPO extends AbstractPO {
         this.fieldDecimalLength = fieldDecimalLength;
     }
 
-    public Boolean getFieldIsKey() {
+    public Integer getFieldIsKey() {
         return this.fieldIsKey;
     }
 
-    public void setFieldIsKey(Boolean fieldIsKey) {
+    public void setFieldIsKey(Integer fieldIsKey) {
         this.fieldIsKey = fieldIsKey;
     }
 

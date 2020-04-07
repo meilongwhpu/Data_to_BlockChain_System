@@ -52,7 +52,7 @@ public class TablefieldInfoUpdateDTO extends AbstractDTO {
 
     @ApiModelProperty(notes = N_FIELD_IS_KEY,example = E_FIELD_IS_KEY, allowableValues = IsKey.VALUES_STR)
     @Const(constClass = IsKey.class)
-    private Boolean fieldIsKey;
+    private Integer fieldIsKey;
 
     @ApiModelProperty(notes = N_ALLOW_NULL,example = E_ALLOW_NULL,required = true, allowableValues = AllowNull.VALUES_STR)
     @NotNull
@@ -124,11 +124,11 @@ public class TablefieldInfoUpdateDTO extends AbstractDTO {
         this.fieldDecimalLength = fieldDecimalLength;
     }
 
-    public Boolean getFieldIsKey() {
+    public Integer getFieldIsKey() {
         return this.fieldIsKey;
     }
 
-    public void setFieldIsKey(Boolean fieldIsKey) {
+    public void setFieldIsKey(Integer fieldIsKey) {
         this.fieldIsKey = fieldIsKey;
     }
 

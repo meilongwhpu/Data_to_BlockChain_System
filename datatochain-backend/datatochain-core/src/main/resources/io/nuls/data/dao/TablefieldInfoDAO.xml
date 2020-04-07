@@ -58,7 +58,7 @@
         #{fieldType,jdbcType=INTEGER},
         #{fieldLength,jdbcType=INTEGER},
         #{fieldDecimalLength,jdbcType=INTEGER},
-        #{fieldIsKey,jdbcType=BOOLEAN},
+        #{fieldIsKey,jdbcType=INTEGER},
         #{allowNull,jdbcType=INTEGER},
         #{fieldDefaultValue,jdbcType=VARCHAR},
         #{creatorId,jdbcType=VARCHAR}
@@ -74,7 +74,7 @@
             field_type=#{fieldType,jdbcType=INTEGER},
             field_length=#{fieldLength,jdbcType=INTEGER},
             field_decimal_length=#{fieldDecimalLength,jdbcType=INTEGER},
-            field_is_key=#{fieldIsKey,jdbcType=BOOLEAN},
+            field_is_key=#{fieldIsKey,jdbcType=INTEGER},
             allow_null=#{allowNull,jdbcType=INTEGER},
             field_default_value=#{fieldDefaultValue,jdbcType=VARCHAR},
             creator_id=#{creatorId,jdbcType=VARCHAR}
@@ -137,5 +137,14 @@
 
     <!-- 以上是自动生成的代码，尽量不要手动修改，新的sql请写在本行注释以下区域 -->
 
+    <select id="findByTableId" parameterType="Integer" resultType="TablefieldInfoPO">
+        select
+        <include refid="tablefieldInfoColumns"><property name="alias" value="t"/></include>
+        from nl_tablefield_info t
+        where
+        t.table_id=#{arg0}
+        order by
+        t.id
+    </select>
 
 </mapper>
