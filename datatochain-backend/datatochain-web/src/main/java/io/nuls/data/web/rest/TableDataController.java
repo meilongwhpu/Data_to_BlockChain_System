@@ -1,41 +1,20 @@
 
 package io.nuls.data.web.rest;
 
-import com.sun.xml.internal.ws.api.pipe.ContentType;
-import io.nuls.common.constant.ErrorCode;
-import io.nuls.common.exception.BusinessException;
-import io.nuls.common.pojo.qo.OptionQO;
-import io.nuls.common.pojo.vo.OptionVO;
-import io.nuls.common.pojo.vo.PageVO;
-import io.nuls.common.util.JsonUtil;
+
 import io.nuls.data.pojo.dto.TableDataAddDTO;
-import io.nuls.data.pojo.dto.TablespaceInfoAddDTO;
-import io.nuls.data.pojo.dto.TablestructureInfoAddDTO;
-import io.nuls.data.pojo.dto.TablestructureInfoUpdateDTO;
-import io.nuls.data.pojo.mapper.TablespaceInfoMapper;
-import io.nuls.data.pojo.mapper.TablestructureInfoMapper;
 import io.nuls.data.pojo.po.TableDataPO;
-import io.nuls.data.pojo.po.TableHeaderListPO;
-import io.nuls.data.pojo.po.TablespaceInfoPO;
-import io.nuls.data.pojo.po.TablestructureInfoPO;
-import io.nuls.data.pojo.qo.TablestructureInfoQO;
 import io.nuls.data.pojo.vo.*;
-import io.nuls.data.service.CreateTableManagerService;
 import io.nuls.data.service.TableDataManagerService;
-import io.nuls.data.service.TablestructureInfoService;
 import io.nuls.data.web.AbstractController;
 import io.nuls.data.web.api.TableDataAPI;
-import io.nuls.data.web.api.TablestructureInfoAPI;
 import io.nuls.data.web.constant.WebConst;
-import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.net.URI;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import com.alibaba.fastjson.JSON;
