@@ -42,7 +42,12 @@ public enum ErrorCode {
     /**
      * 级联删除异常
      */
-    CASCADE_DELETE_ERROR("524", "error.cascade_delete_error");
+    CASCADE_DELETE_ERROR("524", "error.cascade_delete_error"),
+    /**
+     * 关键字已存在
+     */
+    KEY_IS_EXIST("525", "error.record_is_exist");
+
 
 
     private static final Map<String, ErrorCode> LOOKUP = new HashMap<>();

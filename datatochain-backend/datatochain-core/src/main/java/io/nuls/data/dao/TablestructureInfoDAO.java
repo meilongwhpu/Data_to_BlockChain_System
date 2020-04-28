@@ -26,6 +26,10 @@ public interface TablestructureInfoDAO extends DAO<TablestructureInfoPO> {
 
     int updateIsCreate(@Param("isCreate") Integer isCreate,@Param("tableId") Integer id);
 
+    List<OptionVO<Integer, String>>  findFullTableNameBySpaceId(@Param("tableSpaceId") Integer tableSpaceId);
+
+    List<OptionVO<Integer, String>>  findTableNameBySpaceId(@Param("tableSpaceId") Integer tableSpaceId,@Param("isCreate") Integer isCreate);
+
 }
 
 

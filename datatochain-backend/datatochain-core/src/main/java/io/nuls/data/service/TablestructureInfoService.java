@@ -14,6 +14,7 @@ import io.nuls.data.pojo.mapper.TablestructureInfoMapper;
 import io.nuls.data.pojo.po.TablespaceInfoPO;
 import io.nuls.data.pojo.po.TablestructureInfoPO;
 import io.nuls.data.pojo.qo.TablestructureInfoQO;
+import io.nuls.data.pojo.vo.TableInfoVO;
 import io.nuls.data.pojo.vo.TablestructureInfoListVO;
 import io.nuls.data.pojo.vo.TablestructureInfoShowVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +41,15 @@ public class TablestructureInfoService {
     @Autowired
     private TablestructureInfoDAO tablestructureInfoDAO;
 
+    public TableInfoVO getTableInfo(Integer tableId){
+        TablestructureInfoPO tablestructureInfoPO =tablestructureInfoDAO.findById(tableId);
+        TablespaceInfoPO tablespaceInfoPO= tablespaceInfoDAO.findById(tablestructureInfoPO.getTablespaceId());
+        TableInfoVO tableInfoVO=new TableInfoVO();
+        tableInfoVO.setTableId(tableId);
+        tableInfoVO.setTableName(tablestructureInfoPO.getTableName());
+        tableInfoVO.setTableSpaceName(tablespaceInfoPO.getTablespaceName());
+        return tableInfoVO;
+    }
 
     /**
      * 新增【表结构】
@@ -93,6 +103,15 @@ public class TablestructureInfoService {
      */
     public List<OptionVO<Integer, String>> findOptions(OptionQO<Integer, String> qo) {
         List<OptionVO<Integer, String>> options = tablestructureInfoDAO.findOptions(qo);
+        return options;
+    }
+
+    public List<OptionVO<Integer, String>> findFullTableNameBySpaceId(Integer tableSpaceId) {
+        List<OptionVO<Integer, String>> options = tablestructureInfoDAO.findFullTableNameBySpaceId(tableSpaceId);
+        return options;
+    }
+    public List<OptionVO<Integer, String>> findTableNameBySpaceId(Integer tableSpaceId,Integer isCreate) {
+        List<OptionVO<Integer, String>> options = tablestructureInfoDAO.findTableNameBySpaceId(tableSpaceId,isCreate);
         return options;
     }
 

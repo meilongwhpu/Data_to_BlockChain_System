@@ -22,9 +22,11 @@ import java.util.Map;
 public interface TableDataDAO  extends DAO {
 
 
-    public List<Map<String,Object>> queryTableDataByCondition(@Param("tableName") String tableName,@Param("conditionMap") Map<String, Object> conditionMap);
+    public List<Map<String,Object>> queryTableDataByCondition(TableDataQO tableDataQO);
 
-    public int insertData(@Param("tableDataMap") Map<String, Object> tableDataMap);
+    public int insertData(@Param("tableName") String tableName,@Param("tableDataMap") Map<String, Object> tableDataMap);
+
+    public int deleteData(TableDataQO tableDataQO);
 
 }
 

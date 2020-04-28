@@ -93,3 +93,14 @@ div:focus {
   margin-top: 2px;
   margin-bottom: 2px;
 }
+
+.qrcode{
+  display: inline-block;
+  img {
+    width: 132px;
+    height: 132px;
+    background-color: #fff; //设置白色背景色
+    padding: 6px; // 利用padding的特性，挤出白边
+    box-sizing: border-box;
+  }
+}

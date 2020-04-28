@@ -1,54 +1,25 @@
 server:
-  servlet:
-    context-path: /
-  port: 8080
+    servlet:
+        context-path: /
+    port: 8080
 spring:
-  application:
-    name: datatochain
-  profiles:
-    active: local
-  # 强制指定响应头content-type是utf-8编码
-  http:
-    encoding:
-      force: true
-  boot:
-    admin:
-      client:
-        url: http://10.10.22.194:7000
-        instance:
-          prefer-ip: true
-          name: datatochain
-        username: admin
-        password: 123456
-#  security:
-#    user:
-#      name: admin
-#      password: password
-#      roles: ADMIN
+    application:
+        name: datatochain
+    profiles:
+        active: local
+    # 强制指定响应头content-type是utf-8编码
+    http:
+        encoding:
+            force: true
+
 swagger:
-  base-package: io.nuls.data
+    base-package: io.nuls.data
 
 logging:
-  level:
-    io.nuls.data.dao: debug
+    level:
+        io.nuls.data.dao: debug
 mybatis:
 configuration:
 log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
-
-# actuator 监控配置
-management:
-  endpoints:
-    web:
-      exposure:
-        #默认值访问health,info端点  用*可以包含全部端点
-        include: "*"
-
-info:
-  version: @project.version@
-  groupId: @project.groupId@
-  artifactId: @project.artifactId@
-
-
-
 
 

@@ -6,6 +6,7 @@ import io.nuls.common.exception.BusinessException;
 import io.nuls.common.pojo.qo.OptionQO;
 import io.nuls.common.pojo.vo.OptionVO;
 import io.nuls.common.pojo.vo.PageVO;
+import io.nuls.data.constant.IsCreate;
 import io.nuls.data.pojo.dto.TablestructureInfoAddDTO;
 import io.nuls.data.pojo.dto.TablestructureInfoUpdateDTO;
 import io.nuls.data.pojo.mapper.TablestructureInfoMapper;
@@ -18,6 +19,7 @@ import io.nuls.data.service.TablestructureInfoService;
 import io.nuls.data.web.AbstractController;
 import io.nuls.data.web.api.TablestructureInfoAPI;
 import io.nuls.data.web.constant.WebConst;
+import io.nuls.data.rpc.impl.ChainBlockForNulsNetService;
 import org.apache.commons.lang3.ArrayUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -71,6 +73,18 @@ public class TablestructureInfoController extends AbstractController implements 
     @GetMapping(value = "/options")
     public ResponseEntity<List<OptionVO<Integer, String>>> findOptions(OptionQO<Integer, String> qo) {
         List<OptionVO<Integer, String>> options = tablestructureInfoService.findOptions(qo);
+        return ResponseEntity.ok(options);
+    }
+
+    @GetMapping(value = "/findTableName/{id}")
+    public ResponseEntity<List<OptionVO<Integer, String>>> findTableNameBySpaceId(@PathVariable Integer id) {
+        List<OptionVO<Integer, String>> options = tablestructureInfoService.findFullTableNameBySpaceId(id);
+        return ResponseEntity.ok(options);
+    }
+
+    @GetMapping(value = "/findCreatedTableName/{id}")
+    public ResponseEntity<List<OptionVO<Integer, String>>> findCreatedTableNameBySpaceId(@PathVariable Integer id) {
+        List<OptionVO<Integer, String>> options = tablestructureInfoService.findTableNameBySpaceId(id, IsCreate.YES.getValue());
         return ResponseEntity.ok(options);
     }
 

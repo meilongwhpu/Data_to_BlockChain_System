@@ -1,13 +1,25 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
+      <el-select v-model="query.tablespaceName" @change="handleQuery"
+                 style="width:20%;"  placeholder="选择表空间名称"
+                 filterable clearable>
+        <el-option v-for="item in tablespaces.tablespaceInfo"
+                   :key="item.key"
+                   :label="item.value"
+                   :value="item.value">
+        </el-option>
+      </el-select>
+     <!--
       <el-input v-model="query.tablespaceName" placeholder="表空间名称"
                 style="width: 200px;" class="filter-item"
                 @keyup.enter.native="handleQuery"/>
+
       <el-button class="filter-item" icon="el-icon-search" type="primary"
                  @click="handleQuery">
         搜索
       </el-button>
+          -->
       <el-button class="filter-item" style="margin-left: 10px;" type="success"
                  icon="el-icon-edit" @click="handleCreate">
         新建
@@ -22,6 +34,14 @@
               @selection-change="selectionChange"
               border stripe style="width: 100%;">
       <el-table-column type="selection" width="50" />
+      <el-table-column label="表空间名称"
+                       prop="tablespaceName"
+                       align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.tablespaceName }}</span>
+        </template>
+      </el-table-column>
+    <!--
       <el-table-column label="主键"
                        prop="id"
                        align="center" width="100">
@@ -29,6 +49,7 @@
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
+      -->
       <el-table-column label="表名称"
                        prop="tableName"
                        align="center">
@@ -71,13 +92,7 @@
           <span>{{ row.isCreate | findEnumLabel(enums.isCreate) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="表空间名称"
-                       prop="tablespaceName"
-                       align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.tablespaceName }}</span>
-        </template>
-      </el-table-column>
+
       <el-table-column label="操作" align="center" width="230">
         <template slot-scope="{row}">
           <el-button size="mini"
@@ -89,7 +104,7 @@
           <el-button type="success" size="mini"
                      @click="handleTablestructureInfoAdd(row)" class="table-inner-button" :disabled="row.isCreate==1?true:false">创建表结构</el-button>
           <el-button type="success" size="mini"
-                     @click="handleTableDataShow(row)" class="table-inner-button">查看表数据</el-button>
+                     @click="handleTableDataShow(row)" class="table-inner-button"  :disabled="row.isCreate==1?false:true">查看表数据</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -110,9 +125,9 @@ import tablestructureInfoAdd from './add'
 import tablestructureInfoEdit from './edit'
 import tablestructureInfoShow from './show'
 import tablestructureInfoApi from '@/api/tablestructureInfo'
+import tablespaceInfoApi from '@/api/tablespaceInfo'
 import enums from '@/utils/enums'
 import Pagination from '@/components/Pagination'
-import tabledataShow from './tabledatashow'
 
 export default {
   name: 'TablestructureInfoTable',
@@ -120,8 +135,7 @@ export default {
     Pagination,
     tablestructureInfoAdd,
     tablestructureInfoEdit,
-    tablestructureInfoShow,
-    tabledataShow
+    tablestructureInfoShow
   },
   filters: {
     findEnumLabel: enums.findEnumLabel
@@ -138,10 +152,14 @@ export default {
         page: 1,
         limit: 10
       },
+      tablespaces: {
+        tablespaceInfo: []
+      },
       selectItems: []
     }
   },
   created() {
+     this.queryTableSpaceInfo();
     this.doQueryList({ page: 1 })
   },
   methods: {
@@ -154,18 +172,22 @@ export default {
     /**
      * 触发搜索操作
      */
-    handleQuery() {
-      this.doQueryList({ page: 1 })
+    handleQuery(tablespaceName) {
+    console.log(tablespaceName);
+      this.doQueryList({ page: 1,tablespaceName:tablespaceName })
     },
     /**
      * 执行列表查询
      */
-    doQueryList({ page, limit }) {
+    doQueryList({ page, limit,tablespaceName }) {
       if (page) {
         this.query.page = page
       }
       if (limit) {
         this.query.limit = limit
+      }
+      if(tablespaceName){
+      this.query.tablespaceName=tablespaceName
       }
       this.listLoading = true
       return tablestructureInfoApi.fetchList(this.query)
@@ -204,9 +226,8 @@ export default {
       */
    handleTableDataShow(row){
           let newQuery = {tableId: row.id};
-          console.log(newQuery);
           this.$router.push({
-            name: 'tableData',
+            name: 'TabledataInfo',
             query: newQuery
           })
      // this.$refs.tabledataShow.showTableData(row.id);
@@ -225,6 +246,11 @@ export default {
           this.$common.showMsg('success', '删除成功')
           return this.doQueryList({ page: 1 })
         })
+    },
+    queryTableSpaceInfo(){
+      tablespaceInfoApi.findOptions().then(data => {
+             this.tablespaces.tablespaceInfo = data
+       })
     },
     /**
      * 打开新建表单

@@ -3,6 +3,17 @@
     <el-form ref="dataForm" :rules="formRules" :model="form"
              label-position="left" size="small"
              label-width="100px" style="width: 400px; margin-left:50px;">
+      <el-form-item label="表空间名称" prop="tablespaceId">
+      <el-select v-model="tablespaceId" @change="selectTableSpace"
+                 style="width:100%;"  placeholder="请选择"
+                 filterable clearable>
+        <el-option v-for="item in options.tablespaceInfo"
+                   :key="item.key"
+                   :label="item.value"
+                   :value="item.key">
+        </el-option>
+      </el-select>
+      </el-form-item>
       <el-form-item label="表结构名称" prop="tableId">
         <el-select v-model="form.tableId"
                    style="width:100%;" placeholder="请选择"
@@ -72,6 +83,7 @@
 
 <script>
 import tablefieldInfoApi from '@/api/tablefieldInfo'
+import tablespaceInfoApi from '@/api/tablespaceInfo'
 import tablestructureInfoApi from '@/api/tablestructureInfo'
 import enums from '@/utils/enums'
 
@@ -101,7 +113,8 @@ export default {
         allowNull: enums.getAllowNull()
       },
       options: {
-        tablestructureInfo: []
+        tablestructureInfo: [],
+        tablespaceInfo:[]
       },
       form: initFormBean(),
       formVisible: false,
@@ -149,12 +162,19 @@ export default {
      */
     handleCreate() {
       this.resetForm()
-      tablestructureInfoApi.findOptions().then(data => { this.options.tablestructureInfo = data })
+      tablespaceInfoApi.findOptions().then(data => { this.options.tablespaceInfo = data})
+      //tablestructureInfoApi.findOptions().then(data => { this.options.tablestructureInfo = data })
       this.formVisible = true
       this.$nextTick(() => {
         this.$refs['dataForm'].clearValidate()
       })
     },
+   selectTableSpace(value){
+       // tablestructureInfoApi.findOptions(value).then(data => { this.options.tablestructureInfo = data })
+             if(value){
+                    tablestructureInfoApi.findCreatedTableName(value).then(data => { this.options.tablestructureInfo = data})
+             }
+   },
     /**
      * 执行新建操作
      */

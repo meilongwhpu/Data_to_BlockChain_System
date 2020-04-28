@@ -162,7 +162,6 @@ create table nl_app_relation_tablespace_info
    tablespace_id         varchar(50) not null comment '表空间ID',
    relation_time         date not null comment '关联时间',
    del_relation          TINYINT not null default 0 comment '解除关联：0:-未解除;1-解除',
-   creator_id            varchar(50) not null comment '用户ID',
    primary key (id)
 );
 
@@ -223,8 +222,12 @@ create table nl_tablefield_info
    creator_id           varchar(50) not null comment '用户ID',
    primary key (id)
 );
-
 alter table nl_tablefield_info comment '表字段信息表';
+
+insert into nl_tablefield_info(table_id,field_name,field_desc,field_type,field_length,field_is_key,field_decimal_length,allow_null,field_default_value,creator_id)
+values(0,'_hash','上链交易数据hash值','9',100,0,0,0,'',0);
+insert into nl_tablefield_info(table_id,field_name,field_desc,field_type,field_length,field_is_key,field_decimal_length,allow_null,field_default_value,creator_id)
+values(0,'_id','内部ID','8',11,0,0,0,'',0);
 
 /*==============================================================*/
 /* table: nl_system_dict                                 */

@@ -26,6 +26,12 @@ const tablestructureInfoApi = {
   findOptions(query) {
     return request.get(`${apiPath}/options`, { params: query })
   },
+  findTableName(id) {
+    return request.get(`${apiPath}/findTableName/${id}`)
+  },
+  findCreatedTableName(id) {
+    return request.get(`${apiPath}/findCreatedTableName/${id}`)
+  },
   /**
    * 查看【表结构】详情
    */

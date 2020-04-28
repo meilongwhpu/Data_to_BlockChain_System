@@ -5,6 +5,7 @@ import io.nuls.common.pojo.qo.OptionQO;
 import io.nuls.common.pojo.vo.OptionVO;
 import io.nuls.data.pojo.po.TablespaceInfoPO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Select;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;

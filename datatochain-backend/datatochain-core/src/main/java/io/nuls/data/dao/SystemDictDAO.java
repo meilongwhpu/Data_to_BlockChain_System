@@ -3,6 +3,7 @@ package io.nuls.data.dao;
 import io.nuls.common.dao.DAO;
 import io.nuls.data.pojo.po.SystemDictPO;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Repository;
 @Mapper
 public interface SystemDictDAO extends DAO<SystemDictPO> {
 
+    SystemDictPO findByKey(@Param("key") String  key);
 
 }
 

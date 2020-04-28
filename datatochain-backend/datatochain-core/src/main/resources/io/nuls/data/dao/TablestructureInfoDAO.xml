@@ -131,6 +131,24 @@
         limit #{limit}
     </select>
 
+    <select id="findFullTableNameBySpaceId"  resultType="OptionVO">
+        select
+        t.id as `key`,
+        t.`table_name` as `value`
+        from nl_tablestructure_info t
+        where t.tablespace_id=#{tableSpaceId}
+        order by t.id asc
+    </select>
+
+    <select id="findTableNameBySpaceId"  resultType="OptionVO">
+        select
+        t.id as `key`,
+        t.`table_name` as `value`
+        from nl_tablestructure_info t
+        where t.tablespace_id=#{tableSpaceId} and t.is_create=#{isCreate}
+        order by t.id asc
+    </select>
+
     <select id="getCountByTablespaceId" parameterType="Integer" resultType="int">
         select count(1)
         from nl_tablestructure_info t

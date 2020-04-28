@@ -26,7 +26,7 @@ import static io.nuls.data.pojo.example.TablefieldInfoExample.*;
 public class TableDataAddDTO extends AbstractDTO {
 
     private Integer tableId;
-    private Map<String,String> dataValues;
+    private Map<String,Object> dataValues;
 
     public Integer getTableId() {
         return tableId;
@@ -36,11 +36,11 @@ public class TableDataAddDTO extends AbstractDTO {
         this.tableId = tableId;
     }
 
-    public Map<String, String> getDataValues() {
+    public Map<String, Object> getDataValues() {
         return dataValues;
     }
 
-    public void setDataValues(Map<String, String> dataValues) {
+    public void setDataValues(Map<String, Object> dataValues) {
         this.dataValues = dataValues;
     }
 }

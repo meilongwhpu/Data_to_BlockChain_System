@@ -1,7 +1,7 @@
 import request from '@/utils/request'
 
 const apiPath = '/tableData'
-const tablestructureInfoApi = {
+const tableDataApi = {
   /**
    * 新增【表结构】
    */
@@ -18,6 +18,7 @@ const tablestructureInfoApi = {
    * 分页查询【表结构】
    */
   fetchList(query) {
+    console.log(query);
     return request.get(apiPath, { params: query })
   },
 
@@ -52,11 +53,17 @@ const tablestructureInfoApi = {
   createTable(tableId){
     return request.put(`${apiPath}/createTable/${tableId}`)
   },
+  verifyData(tableId,innerId){
+    return request.get(`${apiPath}/verifyData/${tableId}/${innerId}`)
+  },
+  getTableInfo(tableId){
+    return request.get(`${apiPath}/getTableInfo/${tableId}`)
+  },
   /**
    * 批量删除【表结构】
    */
-  deleteBatch(ids) {
-    return request.delete(apiPath, { data: ids })
+  deleteBatch(tableId,ids) {
+    return request.delete(`${apiPath}/deleteData/${tableId}`, { data: ids })
   }
 }
-export default tablestructureInfoApi
+export default tableDataApi

@@ -2,6 +2,7 @@ package io.nuls.data.service;
 
 import io.nuls.data.constant.FieldType;
 import io.nuls.data.constant.MySqlTypeConstant;
+import io.nuls.data.constant.SystemDictKey;
 import io.nuls.data.dao.*;
 import io.nuls.data.pojo.po.CreateTableParamPO;
 import io.nuls.data.pojo.po.TablefieldInfoPO;

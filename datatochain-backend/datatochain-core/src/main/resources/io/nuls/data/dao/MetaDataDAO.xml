@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="io.nuls.data.dao.MetaDataDAO">
+
+    <sql id="metaDataColumns">
+        ${alias}.column_name as columnName,
+        ${alias}.data_type as dataType,
+        ${alias}.column_comment as columnComment
+    </sql>
+
+    <sql id="orderCondition">
+        order by
+            tn.id desc
+    </sql>
+
+    <select id="findByTableName" resultType="MetaDataPO">
+        select
+        <include refid="metaDataColumns"><property name="alias" value="t"/></include>
+        FROM information_schema.COLUMNS t
+        <where>
+            AND t.TABLE_SCHEMA = (SELECT DATABASE()) AND t.TABLE_NAME = #{tableName}
+        </where>
+    </select>
+
+</mapper>

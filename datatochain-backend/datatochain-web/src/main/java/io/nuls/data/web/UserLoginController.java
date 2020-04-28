@@ -3,6 +3,7 @@ package io.nuls.data.web;
 import io.nuls.common.pojo.vo.ReplyVO;
 import io.nuls.data.pojo.dto.UserLoginDTO;
 import io.nuls.data.pojo.vo.UserLoginVO;
+import io.nuls.data.web.AbstractController;
 import io.nuls.data.web.constant.WebConst;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;

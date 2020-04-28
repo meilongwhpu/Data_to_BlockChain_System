@@ -16,7 +16,7 @@ public class TableDataPO extends AbstractPO {
     /**
      * 主键ID
      */
-    private Integer id;
+    private Integer tableId;
 
     private Object values;
     private String type;
@@ -37,14 +37,12 @@ public class TableDataPO extends AbstractPO {
         this.type = type;
     }
 
-    public Integer getId() {
-        return this.id;
+    public Integer getTableId() {
+        return tableId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setTableId(Integer tableId) {
+        this.tableId = tableId;
     }
-
-
 }
 

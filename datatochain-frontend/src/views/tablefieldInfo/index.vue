@@ -1,13 +1,34 @@
 <template>
   <div class="app-container">
     <div class="filter-container">
+      <el-select v-model="tableInfo.tablespaceName" @change="selectTableSpace"
+                 style="width:20%;"  placeholder="选择表空间名称"
+                 filterable clearable>
+        <el-option v-for="item in tablespaces.tablespaceInfo"
+                   :key="item.key"
+                   :label="item.value"
+                   :value="item.key">
+        </el-option>
+      </el-select>
+      <el-select v-model="tableInfo.tableName" @change="selectTableName"
+                 style="width:20%;"  placeholder="选择表的表名称"
+                 filterable clearable>
+        <el-option v-for="item in tablenames.tablenameInfo"
+                   :key="item.key"
+                   :label="item.value"
+                   :value="item.value">
+        </el-option>
+      </el-select>
+      <!--
       <el-input v-model="query.tableName" placeholder="表名称"
                 style="width: 200px;" class="filter-item"
                 @keyup.enter.native="handleQuery"/>
+
       <el-button class="filter-item" icon="el-icon-search" type="primary"
                  @click="handleQuery">
         搜索
       </el-button>
+      -->
       <el-button class="filter-item" style="margin-left: 10px;" type="success"
                  icon="el-icon-edit" @click="handleCreate">
         新建
@@ -22,6 +43,14 @@
               @selection-change="selectionChange"
               border stripe style="width: 100%;">
       <el-table-column type="selection" width="50" />
+      <el-table-column label="表名称"
+                       prop="tableName"
+                       align="center">
+        <template slot-scope="{row}">
+          <span>{{ row.tableName }}</span>
+        </template>
+      </el-table-column>
+      <!--
       <el-table-column label="主键"
                        prop="id"
                        align="center" width="100">
@@ -29,6 +58,7 @@
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
+      -->
       <el-table-column label="表结构名称"
                        prop="tableId"
                        align="center">
@@ -92,6 +122,7 @@
           <span>{{ row.fieldDefaultValue }}</span>
         </template>
       </el-table-column>
+      <!--
       <el-table-column label="创建者ID"
                        prop="creatorId"
                        align="center">
@@ -99,13 +130,8 @@
           <span>{{ row.creatorId }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="表名称"
-                       prop="tableName"
-                       align="center">
-        <template slot-scope="{row}">
-          <span>{{ row.tableName }}</span>
-        </template>
-      </el-table-column>
+      -->
+
       <el-table-column label="操作" align="center" width="230">
         <template slot-scope="{row}">
           <el-button size="mini"
@@ -133,6 +159,8 @@ import tablefieldInfoAdd from './add'
 import tablefieldInfoEdit from './edit'
 import tablefieldInfoShow from './show'
 import tablefieldInfoApi from '@/api/tablefieldInfo'
+import tablespaceInfoApi from '@/api/tablespaceInfo'
+import tablestructureInfoApi from '@/api/tablestructureInfo'
 import enums from '@/utils/enums'
 import Pagination from '@/components/Pagination'
 
@@ -161,10 +189,18 @@ export default {
         page: 1,
         limit: 10
       },
+      tablespaces: {
+        tablespaceInfo: []
+      },
+      tablenames:{
+        tablenameInfo:[]
+      },
+      tableInfo:[],
       selectItems: []
     }
   },
   created() {
+    this.queryTableSpaceInfo();
     this.doQueryList({ page: 1 })
   },
   methods: {
@@ -174,6 +210,21 @@ export default {
     selectionChange(val) {
       this.selectItems = val
     },
+   selectTableSpace(value){
+      if(value){
+             tablestructureInfoApi.findTableName(value).then(data => { this.tablenames.tablenameInfo = data})
+      }
+   },
+    queryTableSpaceInfo(){
+      tablespaceInfoApi.findOptions().then(data => {
+             this.tablespaces.tablespaceInfo = data
+       })
+    },
+   selectTableName(value){
+   console.log(value)
+      this.doQueryList({ page: 1, tableName:value })
+      //this.tableId=value
+   },
     /**
      * 触发搜索操作
      */
@@ -183,17 +234,30 @@ export default {
     /**
      * 执行列表查询
      */
-    doQueryList({ page, limit }) {
+    doQueryList({ page, limit ,tableName}) {
       if (page) {
         this.query.page = page
       }
       if (limit) {
         this.query.limit = limit
       }
+      if(tableName){
+      this.query.tableName = tableName
+      }
       this.listLoading = true
       return tablefieldInfoApi.fetchList(this.query)
         .then(data => {
-          this.list = data.list
+         // this.list = data.list
+              this.list = (function () {
+                  var tmplist=[];
+                  var revelist =data.list;
+                   for(var i=0;i<revelist.length;i++){
+                      if( revelist[i].fieldName!='_hash' && revelist[i].fieldName!='_id'){
+                            tmplist.push(revelist[i]);
+                       }
+                    }
+                    return tmplist;
+               })();
           this.total = data.total
         })
         .finally(() => {

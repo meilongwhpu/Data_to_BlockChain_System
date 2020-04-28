@@ -19,28 +19,45 @@
     </select>
 
 
-    <select id="queryTableDataByCondition" resultType="java.util.HashMap"  parameterType="java.util.HashMap">
+    <select id="queryTableDataByCondition" resultType="java.util.HashMap"   parameterType="TableDataQO">
         select
         <foreach collection="columnsArray" item="item" index="index" open=" " separator=", " close=" " >
             ${item}
         </foreach>
-        from   #{tableName}   tn
+        from   ${tableName}   tn
         <where>
-            <foreach collection="conditionMap" index="key" item="field" separator="and ">
-                tn.`${key}` = `${field}`
+            <foreach collection="conditionMap" index="key" item="value" separator="and" >
+                tn.${key} =  #{value.values,jdbcType=${value.type}}
             </foreach>
         </where>
     </select>
 
-    <select id="insertData" parameterType="java.util.Map">
-        insert into
-        <foreach collection="tableDataMap" index="key" item="value"  open="( "  separator=","  close=") " >
-             `${key}`
+    <insert  id="insertData"  parameterType="java.util.Map" >
+        insert into ${tableName}  (
+        <foreach collection="tableDataMap" item="value" index="key" separator=",">
+            ${key}
         </foreach>
-        values
-        <foreach collection="tableDataMap" index="key" item="data"  open="( "  separator=","  close="); " >
-            #{data.value,jdbcType=data.type}
+        )
+            VALUES
+        <foreach collection="tableDataMap" index="key" item="value"   open="( "   separator=","  close=")"  >
+            #{value.values,jdbcType=${value.type}}
         </foreach>
-    </select>
+    </insert>
+
+    <update  id="updateHashForData"  parameterType="java.util.Map" >
+        update ${tableName} set
+        hash=#{hash,jdbcType=VARCHAR}
+        where id=#{id,jdbcType=INTEGER}
+
+    </update>
+
+    <delete id="deleteData"   parameterType="TableDataQO">
+        delete from ${tableName}
+        <where>
+            <foreach collection="conditionMap" index="key" item="value" separator="and" >
+                ${key} =  #{value.values,jdbcType=${value.type}}
+            </foreach>
+        </where>
+    </delete>
 
 </mapper>

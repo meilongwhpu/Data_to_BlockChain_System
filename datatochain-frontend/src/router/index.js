@@ -55,18 +55,6 @@ export const constantRoutes = [
     }]
   },
   {
-    path: '/operateLog',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'OperateLog',
-        component: () => import('@/views/operateLog'),
-        meta: { title: '操作日志管理', icon: 'table' }
-      }
-    ]
-  },
-  {
     path: '/appInfo',
     component: Layout,
     children: [
@@ -139,10 +127,23 @@ export const constantRoutes = [
     ]
   },
 {
-  path: '/tableData',
-  name:'tableData',
-    component: () => import('@/views/tabledata/index.vue'),
-  hidden: true
+  path: '/operateLog',
+    component: Layout,
+  children: [
+  {
+    path: 'index',
+    name: 'OperateLog',
+    component: () => import('@/views/operateLog'),
+  meta: { title: '操作日志管理', icon: 'table' }
+}
+]
+},
+{
+  path: '/showTableData',
+  name:'showTableData',
+  //component: () => import('@/views/tabledata/tabledatashow'),
+  component: resolve => require(['@/views/tabledata/showdata.vue'], resolve)
+  //hidden: true
 },
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }

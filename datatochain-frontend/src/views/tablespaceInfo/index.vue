@@ -15,6 +15,7 @@
               @selection-change="selectionChange"
               border stripe style="width: 100%;">
       <el-table-column type="selection" width="50" />
+     <!--
       <el-table-column label="主键"
                        prop="id"
                        align="center" width="100">
@@ -22,6 +23,7 @@
           <span>{{ row.id }}</span>
         </template>
       </el-table-column>
+      -->
       <el-table-column label="表空间名称"
                        prop="tablespaceName"
                        align="center">
@@ -71,6 +73,7 @@
           <span>{{ row.updateTime }}</span>
         </template>
       </el-table-column>
+      <!--
       <el-table-column label="创建者ID"
                        prop="creatorId"
                        align="center">
@@ -78,6 +81,7 @@
           <span>{{ row.creatorId }}</span>
         </template>
       </el-table-column>
+      -->
       <el-table-column label="操作" align="center" width="230">
         <template slot-scope="{row}">
           <el-button size="mini"

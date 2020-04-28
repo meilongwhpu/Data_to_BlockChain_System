@@ -14,6 +14,10 @@ import java.util.Map;
 public enum ChainType {
 
     /**
+     * NO-TO-CHAINBLOCK
+     */
+    NOTOCHAINBLOCK(0,"NO-TO-CHAINBLOCK"),
+    /**
      * NULS-MAIN-NET
      */
     NULSMAINNET(1,"NULS-MAIN-NET"),
@@ -29,7 +33,7 @@ public enum ChainType {
     /**
      * 枚举值罗列，给swagger接口文档展示用
      */
-    public static final String VALUES_STR = "1,2";
+    public static final String VALUES_STR = "0,1,2";
 
     private static final Map<Integer, ChainType> LOOKUP = new HashMap<>();
 

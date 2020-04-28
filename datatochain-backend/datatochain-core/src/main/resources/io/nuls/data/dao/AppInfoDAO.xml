@@ -132,7 +132,7 @@
         insert into nl_app_relation_tablespace_info(
             app_id,
             tablespace_id,
-            created_time
+            relation_time
         )values(
             #{appId,jdbcType=INTEGER},
             #{tablespaceId,jdbcType=INTEGER},

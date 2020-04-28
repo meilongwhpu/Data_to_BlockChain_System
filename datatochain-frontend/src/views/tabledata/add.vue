@@ -23,9 +23,8 @@
 <script>
 import tablestructureInfoApi from '@/api/tablestructureInfo'
 import tablespaceInfoApi from '@/api/tablespaceInfo'
-import tabledataApi from '@/api/tableData'
+import tableDataApi from '@/api/tableData'
 import enums from '@/utils/enums'
-
 
 export default {
   name: 'TableDataAdd',
@@ -55,7 +54,7 @@ export default {
      */
     handleCreate(tableId) {
       this.tableId=tableId;
-      tabledataApi.fetchTableHeader(tableId)
+      tableDataApi.fetchTableHeader(tableId)
         .then(data => {
           this.activePlayerDataPropLabelArray=data.tableHeader
           this.dataForm=this.initFormBean(this.activePlayerDataPropLabelArray);
@@ -68,7 +67,7 @@ export default {
      */
     doCreate() {
       this.$refs['dataForm'].validate()
-        .then(() => tabledataApi.addTableValue(this.dataForm))
+        .then(() => tableDataApi.addTableValue(this.dataForm))
         .then(data => {
           this.formVisible = false
           //this.$common.showMsg('success', '创建成功')

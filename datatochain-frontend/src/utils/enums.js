@@ -87,6 +87,10 @@ function getEncryptionMode() {
 
 function getChainType() {
   return {
+    'NOTOCHAINBLOCK': {
+      value: 0,
+      label: 'NO-TO-CHAINBLOCK'
+    },
     'NULSMAINNET': {
       value: 1,
       label: 'NULS-MAIN-NET'

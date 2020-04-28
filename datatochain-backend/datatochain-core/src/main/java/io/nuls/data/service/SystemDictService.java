@@ -3,6 +3,7 @@ package io.nuls.data.service;
 import io.nuls.common.constant.ErrorCode;
 import io.nuls.common.exception.BusinessException;
 import io.nuls.common.pojo.vo.PageVO;
+import io.nuls.data.constant.SystemDictKey;
 import io.nuls.data.dao.SystemDictDAO;
 import io.nuls.data.pojo.dto.SystemDictAddDTO;
 import io.nuls.data.pojo.dto.SystemDictUpdateDTO;
@@ -36,7 +37,11 @@ public class SystemDictService {
      */
     @Transactional(rollbackFor = RuntimeException.class)
     public SystemDictPO save(SystemDictAddDTO systemDictDTO) {
-        SystemDictPO systemDict = SystemDictMapper.INSTANCE.fromAddDTO(systemDictDTO);
+        SystemDictPO systemDict = systemDictDAO.findByKey(systemDictDTO.getDictKey());
+        if (systemDict!=null) {
+            throw new BusinessException(ErrorCode.RECORD_NOT_FIND);
+        }
+        systemDict = SystemDictMapper.INSTANCE.fromAddDTO(systemDictDTO);
         systemDictDAO.save(systemDict);
         return systemDict;
     }
@@ -108,6 +113,30 @@ public class SystemDictService {
             count += systemDictDAO.delete(id);
         }
         return count;
+    }
+
+    public String getApiAddressForNULSMAIN(){
+        SystemDictPO systemDict = systemDictDAO.findByKey(SystemDictKey.NULSMAIN);
+        if (systemDict == null) {
+            throw new BusinessException(ErrorCode.RECORD_NOT_FIND);
+        }
+        return systemDict.getDictValue();
+    }
+
+    public String getApiAddressForNULSNET(){
+        SystemDictPO systemDict = systemDictDAO.findByKey(SystemDictKey.NULSNET);
+        if (systemDict == null) {
+            throw new BusinessException(ErrorCode.RECORD_NOT_FIND);
+        }
+        return systemDict.getDictValue();
+    }
+
+    public String findValueByKey(String key){
+        SystemDictPO systemDict = systemDictDAO.findByKey(key);
+        if (systemDict == null) {
+            throw new BusinessException(ErrorCode.RECORD_NOT_FIND);
+        }
+        return systemDict.getDictValue();
     }
 
 

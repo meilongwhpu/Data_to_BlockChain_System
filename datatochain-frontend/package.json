@@ -22,8 +22,12 @@
     "normalize.css": "7.0.0",
     "nprogress": "0.2.0",
     "path-to-regexp": "2.4.0",
+    "qrcode": "^1.4.4",
+    "qrcodejs2": "0.0.2",
     "qs": "^6.7.0",
     "vue": "2.6.10",
+    "vue-qart": "^2.2.0",
+    "vue-qr": "^2.2.1",
     "vue-router": "3.0.6",
     "vuex": "3.1.0"
   },

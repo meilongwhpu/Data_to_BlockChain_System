@@ -1,63 +1,60 @@
 <template>
-  <el-dialog title="查看表结构" :visible.sync="formVisible">
+  <el-dialog title="查看链上数据" :visible.sync="formVisible">
     <el-form ref="dataForm" :model="form"
              label-position="left" size="small"
-             label-width="100px" style="width: 400px; margin-left:50px;">
-      <el-form-item label="主键">
+             label-width="100px" style="width: 700px; margin-left:50px;">
+      <el-form-item label="数据链HASH值">
         <span class="form-item-show">
-          {{ form.id }}
+          {{ form.hash }}
         </span>
       </el-form-item>
-      <el-form-item label="表名称">
+      <el-form-item label="链上数据">
         <span class="form-item-show">
-          {{ form.tableName }}
+          {{ form.remark }}
         </span>
       </el-form-item>
-      <el-form-item label="表描述">
+      <el-form-item label="上链时间">
         <span class="form-item-show">
-          {{ form.tableDesc }}
+          {{ form.time }}
         </span>
       </el-form-item>
-      <el-form-item label="创建时间">
+      <el-form-item label="上链高度">
         <span class="form-item-show">
-          {{ form.createTime }}
+          {{ form.blockHeight }}
         </span>
       </el-form-item>
-      <el-form-item label="更新时间">
+      <el-form-item label="是否篡改">
         <span class="form-item-show">
-          {{ form.updateTime }}
+          {{ form.isModify }}
         </span>
       </el-form-item>
-      <el-form-item label="创建者ID">
-        <span class="form-item-show">
-          {{ form.creatorId }}
-        </span>
+      <el-form-item label="二维码">
+     <vue-qr
+      :bgSrc="config.imagePath"
+      :text="config.value"
+      :size="100"
+      :margin="0"></vue-qr>
       </el-form-item>
-      <el-form-item label="是否创建">
-        <span class="form-item-show">
-          {{ form.isCreate | findEnumLabel(enums.isCreate) }}
-        </span>
-      </el-form-item>
-      <el-form-item label="表空间名称">
-        <span class="form-item-show">
-          {{ form.tablespaceName }}
-        </span>
-      </el-form-item>
-    </el-form>
-    <div slot="footer" class="dialog-footer">
-      <el-button @click="formVisible = false">
-        取消
-      </el-button>
-    </div>
+
+  </el-form>
   </el-dialog>
 </template>
 
 <script>
-import tablestructureInfoApi from '@/api/tablestructureInfo'
+import QRCode from 'qrcodejs2'
+//import QRCode from 'qrcode'
+import VueQArt from 'vue-qart'
+import VueQr from 'vue-qr'
 import enums from '@/utils/enums'
+import tableDataApi from '@/api/tableData'
 
 export default {
-  name: 'TablestructureInfoShow',
+  name: 'VerifyDataShow',
+  components: {
+  VueQArt,
+      QRCode,
+      VueQr
+   },
   filters: {
     findEnumLabel: enums.findEnumLabel
   },
@@ -67,14 +64,16 @@ export default {
         isCreate: enums.getIsCreate()
       },
       form: {
-        id: null,
-        tableName: null,
-        tableDesc: null,
-        createTime: null,
-        updateTime: null,
-        creatorId: null,
-        isCreate: null
+        hash: null,
+        remark: null,
+        time: null,
+        blockHeight:null,
+        isModify: null
       },
+      config: {
+          value: '',
+          imagePath: require('../../assets/nuls.png')
+      	},
       formVisible: false
     }
   },
@@ -82,13 +81,45 @@ export default {
     /**
      * 打开查看表单
      */
-    handleShow(id) {
-      tablestructureInfoApi.fetchById(id)
+    handleShow(tableId,innerId) {
+      tableDataApi.verifyData(tableId,innerId)
         .then(data => {
           this.form = data
           this.formVisible = true
+          this.config.value=data.hash
+          //this.createQrCode()
+       // this.message('TEST')
         })
+    },
+    qrcode() {
+           let qrcode = new QRCode("qrcode", {
+             width: 232, // 设置宽度
+             height: 232, // 设置高度
+             text: "33333"
+           });
+         }
+
+  },
+    mounted() {
+      this.$nextTick(function() {
+        this.qrcode();
+      });
     }
-  }
 }
 </script>
+<style>
+#qrcode img {
+  display: block;
+  margin: 0 auto;
+}
+.el-dialog__body{
+  padding:20px 20px;
+}
+.el-form-item--mini.el-form-item, .el-form-item--small.el-form-item{
+  margin-bottom:10px;
+}
+.el-dialog{
+margin-top:10vh;
+width:60%;
+}
+</style>

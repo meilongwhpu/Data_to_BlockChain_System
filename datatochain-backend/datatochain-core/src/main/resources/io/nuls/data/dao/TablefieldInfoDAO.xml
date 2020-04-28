@@ -142,7 +142,7 @@
         <include refid="tablefieldInfoColumns"><property name="alias" value="t"/></include>
         from nl_tablefield_info t
         where
-        t.table_id=#{arg0}
+        t.table_id=#{arg0} or t.table_id=0
         order by
         t.id
     </select>

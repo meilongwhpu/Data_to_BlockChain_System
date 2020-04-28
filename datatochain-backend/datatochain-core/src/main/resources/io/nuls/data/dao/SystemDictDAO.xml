@@ -88,6 +88,14 @@
 
 
     <!-- 以上是自动生成的代码，尽量不要手动修改，新的sql请写在本行注释以下区域 -->
-
+    <select id="findByKey" resultType="SystemDictPO">
+        select
+        <include refid="systemDictColumns"><property name="alias" value="t"/></include>
+        from nl_system_dict t
+        <where>
+            and t.dict_key = #{key}
+        </where>
+        limit 1
+    </select>
 
 </mapper>
